@@ -28,6 +28,7 @@
   --caps: "Cinzel", serif;
   --script: "Great Vibes", cursive;
   --sans: "Outfit", system-ui, sans-serif;
+  --num: "Playfair Display", "Didot", Georgia, serif;   /* numbers: countdown, date, phone */
 }
 
 * { box-sizing: border-box; }
@@ -284,7 +285,7 @@ svg { display: block; }
   color: #2e1702; text-transform: uppercase; text-shadow: 0 1px 0 rgba(255, 245, 210, .75);
 }
 .env-date {
-  position: relative; margin: 2px 0 0; font-family: var(--caps); font-size: 20px; letter-spacing: .22em; font-weight: 700;
+  position: relative; margin: 2px 0 0; font-family: var(--num); font-size: 23px; letter-spacing: .14em; font-weight: 800;
   color: #6b1606; text-shadow: 0 1px 0 rgba(255, 245, 210, .75);
 }
 
@@ -435,6 +436,7 @@ main { position: relative; z-index: 2; overflow-x: clip; }
 .detail .ico { width: 30px; height: 30px; margin: 0 auto 8px; color: var(--marigold); }
 .detail h3 { font-family: var(--caps); font-size: 13.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--marigold); margin: 0 0 4px; font-weight: 700; }
 .detail p { margin: 0; font-size: 20px; font-weight: 700; }
+.detail p.num { font-family: var(--num); font-weight: 800; font-size: 21px; line-height: 1.45; color: var(--ink); }
 
 .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 26px 0; }
 .countdown div {
@@ -442,7 +444,7 @@ main { position: relative; z-index: 2; overflow-x: clip; }
   background: linear-gradient(160deg, rgba(90, 45, 10, .75), rgba(50, 22, 4, .8));
   box-shadow: 0 0 18px rgba(255, 170, 50, .25);
 }
-.countdown b { display: block; font-family: var(--caps); font-size: clamp(26px, 7vw, 36px); line-height: 1.1; font-weight: 700; color: #ffd25e; text-shadow: 0 0 12px rgba(255, 190, 70, .55), 0 2px 0 rgba(40, 15, 0, .6); font-variant-numeric: tabular-nums; }
+.countdown b { display: block; font-family: var(--num); font-size: clamp(32px, 9vw, 44px); line-height: 1.05; font-weight: 900; color: #ffd25e; text-shadow: 0 0 12px rgba(255, 190, 70, .55), 0 2px 0 rgba(40, 15, 0, .6); font-variant-numeric: lining-nums tabular-nums; }
 .countdown span { font-family: var(--sans); font-weight: 700; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark); }
 .countdown.done { grid-template-columns: 1fr; font-family: var(--script); font-size: 34px; color: var(--accent-on-dark); }
 
@@ -520,7 +522,7 @@ main { position: relative; z-index: 2; overflow-x: clip; }
 }
 .stepper button:disabled { opacity: .35; cursor: default; }
 .stepper button:focus-visible { outline: 2px solid var(--marigold); outline-offset: -3px; }
-.stepper output { min-width: 42px; text-align: center; font: 700 19px var(--sans); color: var(--ink); font-variant-numeric: tabular-nums; }
+.stepper output { min-width: 42px; text-align: center; font: 800 22px var(--num); color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
 .meal-title { margin: 6px 0 0; font-family: var(--caps); font-weight: 700; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--marigold); border-top: 1px dashed rgba(170, 110, 20, .5); padding-top: 10px; }
 .dot { width: 14px; height: 14px; border: 2px solid; border-radius: 3px; display: inline-grid; place-items: center; flex: none; }
 .dot::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
@@ -542,7 +544,7 @@ main { position: relative; z-index: 2; overflow-x: clip; }
 }
 .contact-who { display: grid; gap: 2px; }
 .contact-name { font-family: var(--caps); font-weight: 700; font-size: 20px; letter-spacing: .06em; color: var(--marigold); }
-.contact-num { font: 700 24px var(--sans); letter-spacing: .04em; color: var(--ink); font-variant-numeric: tabular-nums; user-select: all; }
+.contact-num { font: 800 27px var(--num); letter-spacing: .03em; color: var(--ink); font-variant-numeric: tabular-nums; user-select: all; }
 .contact-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .contact-btn { min-height: 48px; padding: 8px 12px; font-size: 15px; }
 .btn-wa { background: linear-gradient(135deg, #3ad070, #1f9d4f); color: #fff; box-shadow: 0 6px 16px rgba(20, 60, 30, .3), 0 0 0 1px rgba(255, 255, 255, .4) inset; }
@@ -606,3 +608,6 @@ main { position: relative; z-index: 2; overflow-x: clip; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Playfair's default digits rise and drop like lowercase letters; use even-height digits for easy reading */
+.contact-num, .env-date, .detail p { font-variant-numeric: lining-nums; }
