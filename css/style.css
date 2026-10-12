@@ -2,6 +2,7 @@
    Deepavali Open House & Housewarming — warm bronze, gold & orange
    ============================================================ */
 :root {
+  color-scheme: light dark;   /* see index.html: keeps phone dark modes from recolouring the page */
   /* text on the dark bronze background */
   --on-dark: #fffaf0;
   --on-dark-muted: #fff0d2;
@@ -611,3 +612,9 @@ main { position: relative; z-index: 2; overflow-x: clip; }
 
 /* Playfair's default digits rise and drop like lowercase letters; use even-height digits for easy reading */
 .contact-num, .env-date, .detail p { font-variant-numeric: lining-nums; }
+
+/* Same look on phones set to dark mode. Having a dark-mode rule tells Samsung Internet the page
+   handles dark mode itself, so it does not apply its own recolouring. */
+@media (prefers-color-scheme: dark) {
+  body { background: var(--bronze); color: var(--on-dark); }
+}
