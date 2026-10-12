@@ -57,45 +57,13 @@
     s.appendChild(u);
     return s;
   }
-  var BULBS = ['#ffd34d', '#ff8a1f', '#ff4d4d', '#7ee081', '#ff6fb5', '#6fc8ff'];
-
-  // A string of fairy lights hanging in swags
-  function makeLights(swags, perSwag) {
-    var box = el('div', 'lights'), sag = 30, d = '';
+  // Marigold, rose and jasmine garland (toran) with hanging strands and mango leaves
+  var FLOWERS = ['y', 'o', 'y', 'o', 'w', 'y', 'o', 'r'];
+  function makeToran(swags, cls) {
+    var box = el('div', 'toran' + (cls ? ' ' + cls : '')), sag = 26, n = 0;
     box.setAttribute('aria-hidden', 'true');
-    var wire = document.createElementNS(SVGNS, 'svg');
-    wire.setAttribute('class', 'wire');
-    wire.setAttribute('viewBox', '0 0 1000 54');
-    wire.setAttribute('preserveAspectRatio', 'none');
-    for (var s = 0; s < swags; s++) {
-      var x0 = 1000 * s / swags, x1 = 1000 * (s + 1) / swags;
-      d += (s ? ' ' : 'M' + x0 + ' 6') + ' Q' + (x0 + x1) / 2 + ' ' + (6 + 2 * sag) + ' ' + x1 + ' 6';
-      for (var i = 1; i < perSwag; i++) {
-        var t = i / perSwag, b = el('i', 'bulb');
-        b.style.left = (100 * (s + t) / swags) + '%';
-        b.style.top = (6 + 4 * t * (1 - t) * sag + 2) + 'px';
-        b.style.setProperty('--c', BULBS[(s * perSwag + i) % BULBS.length]);
-        b.style.animationDelay = (-Math.random() * 1.6) + 's';
-        box.appendChild(b);
-      }
-    }
-    var path = document.createElementNS(SVGNS, 'path');
-    path.setAttribute('d', d);
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', '#3d2410');
-    path.setAttribute('stroke-width', '1.5');
-    path.setAttribute('vector-effect', 'non-scaling-stroke');
-    wire.appendChild(path);
-    box.insertBefore(wire, box.firstChild);
-    return box;
-  }
-
-  // Marigold garland (toran) with hanging strands and mango leaves
-  function makeToran(swags) {
-    var box = el('div', 'toran'), sag = 26, n = 0;
-    box.setAttribute('aria-hidden', 'true');
-    function flower(xPct, yPx) {
-      var f = el('i', 'mg ' + (n++ % 2 ? 'o' : 'y'));
+    function flower(xPct, yPx, type) {
+      var f = el('i', 'mg ' + (type || FLOWERS[n++ % FLOWERS.length]));
       f.style.left = xPct + '%'; f.style.top = yPx + 'px';
       box.appendChild(f);
     }
@@ -107,7 +75,7 @@
     }
     for (var k = 0; k <= swags; k++) {
       var x = Math.min(Math.max(100 * k / swags, 2), 98);
-      for (var j = 1; j <= 4; j++) flower(x, 8 + j * 15);
+      for (var j = 1; j <= 4; j++) flower(x, 8 + j * 15, j % 2 ? 'o' : 'y');
       var leaf = el('i', 'leaf');
       leaf.style.left = x + '%'; leaf.style.top = (8 + 5 * 15 - 4) + 'px';
       box.appendChild(leaf);
@@ -125,12 +93,42 @@
     });
   }
 
+  // Place a pair of kuthu vilakku (brass standing lamps) on either side of an element
+  function flankWithLamps(node) {
+    if (!node) return;
+    var row = el('div', 'lamp-row' + (node.classList.contains('reveal') ? ' reveal' : ''));
+    node.classList.remove('reveal');
+    node.parentNode.insertBefore(row, node);
+    row.appendChild(useSvg('vilakku', 'vilakku'));
+    row.appendChild(node);
+    row.appendChild(useSvg('vilakku', 'vilakku'));
+  }
+
+  // Petals drifting down every screen
+  (function () {
+    if (reduceMotion) return;
+    var box = el('div', 'bg-petals'), kinds = ['o', 'y', 'r', 'w', 'o', 'y'];
+    box.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < 18; i++) {
+      var pe = el('i', 'petal ' + kinds[i % kinds.length]);
+      pe.style.left = Math.random() * 100 + '%';
+      pe.style.animationDuration = 11 + Math.random() * 10 + 's';
+      pe.style.animationDelay = -Math.random() * 20 + 's';
+      pe.style.setProperty('--sway', (Math.random() * 120 - 60) + 'px');
+      pe.style.setProperty('--spin', (Math.random() < .5 ? -1 : 1) * (240 + Math.random() * 360) + 'deg');
+      var sz = 8 + Math.random() * 8;
+      pe.style.width = sz + 'px'; pe.style.height = sz * 0.7 + 'px';
+      box.appendChild(pe);
+    }
+    document.body.insertBefore(box, $('#cover'));
+  })();
+
   (function decorate() {
     var narrow = innerWidth < 560;
     var cover = $('#cover');
     cover.insertBefore(makeToran(narrow ? 3 : 5), cover.firstChild);
     makeKandils(cover, narrow ? 3 : 5);
-    cover.appendChild(makeLights(narrow ? 3 : 5, 7));
+    cover.appendChild(makeToran(narrow ? 3 : 5, 'bottom'));
 
     ['#wish', '#closing'].forEach(function (id) {
       var sec = $(id);
@@ -139,8 +137,14 @@
     });
     ['#video', '#invite', '#details', '#rsvp', '#story'].forEach(function (id) {
       var sec = $(id);
-      sec.insertBefore(makeLights(narrow ? 3 : 4, 7), sec.firstChild);
+      sec.classList.add('has-toran');
+      sec.insertBefore(makeToran(narrow ? 3 : 4), sec.firstChild);
     });
+
+    // Kuthu vilakku beside the main headings and in the cards
+    ['#video > .kicker', '#details .sec-title', '#rsvp .sec-title', '.wishes-title', '.closing-wish', '.medallion', '.story-diyas', '.cover-title']
+      .forEach(function (s) { flankWithLamps($(s)); });
+
     ['#video', '#details'].forEach(function (id) {
       var row = el('div', 'diya-row');
       row.setAttribute('aria-hidden', 'true');
@@ -277,7 +281,7 @@
   /* ---------- video: autoplays muted inside the royal frame ---------- */
   (function () {
     var src = (C.video || '').trim(); if (!src) return;
-    var frame = $('#videoFrame'), soundBtn = $('#soundBtn');
+    var frame = $('#videoFrame');
     var yt = src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/);
     frame.innerHTML = '';
     if (yt) {
@@ -292,7 +296,7 @@
     }
     var v = el('video');
     v.muted = true; v.defaultMuted = true; v.setAttribute('muted', '');
-    v.autoplay = true; v.loop = true; v.playsInline = true;
+    v.autoplay = true; v.loop = true; v.playsInline = true; v.disablePictureInPicture = true;
     v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
     v.preload = 'auto';
     // MP4 for phones; optional WebM fallback for browsers without H.264
@@ -301,7 +305,7 @@
       var so = el('source'); so.src = s[0]; so.type = s[1]; v.appendChild(so);
     });
     if (C.videoPoster) v.poster = C.videoPoster;
-    v.setAttribute('aria-label', 'Deepavali video. Tap to turn sound on or off.');
+    v.setAttribute('aria-label', 'Deepavali video');
     v.addEventListener('loadedmetadata', function () { if (v.videoWidth > v.videoHeight) frame.classList.add('landscape'); });
     frame.appendChild(v);
 
@@ -314,14 +318,8 @@
     }
     document.addEventListener('invite-opened', tryPlay);
 
-    function setSound(on) {
-      v.muted = !on;
-      soundBtn.textContent = on ? 'Mute video' : 'Tap for sound';
-      if (on) { tryPlay(); if (C.music && !audio.paused) audio.pause(); }
-    }
-    soundBtn.hidden = false;
-    soundBtn.addEventListener('click', function () { setSound(v.muted); });
-    v.addEventListener('click', function () { setSound(v.muted); });
+    // Always silent: re-mute if the browser or a gesture unmutes it
+    v.addEventListener('volumechange', function () { if (!v.muted) v.muted = true; });
   })();
 
   /* ---------- map & navigation ---------- */
@@ -404,11 +402,6 @@
   var lastNewName = null;
 
   function renderWall(data) {
-    $('#tally').hidden = false;
-    $('#tAttend').textContent = data.attending || 0;
-    $('#tVeg').textContent = data.veg || 0;
-    $('#tNon').textContent = data.nonVeg || 0;
-    $('#tWishes').textContent = (data.wishes || []).length;
     var wall = $('#wishesWall'); wall.innerHTML = '';
     var list = (data.wishes || []).slice(0, 100);
     if (!list.length) {

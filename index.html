@@ -122,6 +122,30 @@
       <circle cx="80" cy="38" r="1.2" fill="#fff4c2"/>
     </symbol>
 
+    <!-- Kuthu vilakku (brass standing lamp) -->
+    <symbol id="vilakku" viewBox="0 0 80 200">
+      <g class="diya-flame"><path d="M40 0C43 5 45 9 43 12C42 14 38 14 37 12C35 9 37 5 40 0Z" fill="url(#flame)"/></g>
+      <path d="M40 13C46 13 48 20 44 25H36C32 20 34 13 40 13Z" fill="url(#gold)" stroke="#6b4510" stroke-width=".7"/>
+      <rect x="37.5" y="25" width="5" height="22" fill="url(#gold)" stroke="#6b4510" stroke-width=".6"/>
+      <g class="diya-flame">
+        <path d="M8 40C11 45 12 49 10 52C9 54 6 54 5 52C4 49 5 45 8 40Z" fill="url(#flame)"/>
+        <path d="M24 38C27 43 28 47 26 50C25 52 22 52 21 50C20 47 21 43 24 38Z" fill="url(#flame)"/>
+        <path d="M56 38C59 43 60 47 58 50C57 52 54 52 53 50C52 47 53 43 56 38Z" fill="url(#flame)"/>
+        <path d="M72 40C75 45 76 49 74 52C73 54 70 54 69 52C68 49 69 45 72 40Z" fill="url(#flame)"/>
+      </g>
+      <path d="M2 52C14 56 28 57 40 57C52 57 66 56 78 52C76 64 60 70 40 70C20 70 4 64 2 52Z" fill="url(#gold)" stroke="#6b4510" stroke-width=".8"/>
+      <path d="M8 56C22 60 58 60 72 56" fill="none" stroke="#fff1bf" stroke-width="1" opacity=".7"/>
+      <rect x="36" y="70" width="8" height="70" rx="2" fill="url(#gold)" stroke="#6b4510" stroke-width=".7"/>
+      <ellipse cx="40" cy="88" rx="9" ry="4" fill="url(#gold)" stroke="#6b4510" stroke-width=".7"/>
+      <ellipse cx="40" cy="112" rx="11" ry="5" fill="url(#gold)" stroke="#6b4510" stroke-width=".7"/>
+      <ellipse cx="40" cy="136" rx="8" ry="3.5" fill="url(#gold)" stroke="#6b4510" stroke-width=".7"/>
+      <path d="M30 142H50L56 158H24Z" fill="url(#gold)" stroke="#6b4510" stroke-width=".8"/>
+      <path d="M24 158C24 164 56 164 56 158L64 176H16Z" fill="url(#gold)" stroke="#6b4510" stroke-width=".8"/>
+      <path d="M10 176H70C72 176 74 180 72 184H8C6 180 8 176 10 176Z" fill="url(#gold)" stroke="#6b4510" stroke-width=".8"/>
+      <ellipse cx="40" cy="188" rx="34" ry="6" fill="url(#gold)" stroke="#6b4510" stroke-width=".8"/>
+      <g fill="#c1272d"><circle cx="40" cy="166" r="2"/><circle cx="28" cy="180" r="1.4"/><circle cx="52" cy="180" r="1.4"/><circle cx="40" cy="62" r="1.8"/></g>
+    </symbol>
+
     <!-- Divider -->
     <symbol id="divider" viewBox="0 0 240 24">
       <g fill="none" stroke="url(#gold)" stroke-width="1.2" stroke-linecap="round">
@@ -144,7 +168,7 @@
   </defs>
 </svg>
 
-<!-- ============ Background: floating lights ============ -->
+<!-- ============ Background: glow, rangoli, sparkles ============ -->
 <div class="bg-glow" aria-hidden="true"></div>
 <svg class="bg-rangoli r1" aria-hidden="true"><use href="#rangoli"/></svg>
 <svg class="bg-rangoli r2" aria-hidden="true"><use href="#rangoli"/></svg>
@@ -221,7 +245,6 @@
       </div>
       <svg class="royal-c bl" aria-hidden="true"><use href="#corner"/></svg>
       <svg class="royal-c br" aria-hidden="true"><use href="#corner"/></svg>
-      <button class="sound-btn" id="soundBtn" type="button" hidden>Tap for sound</button>
     </div>
   </section>
 
@@ -279,7 +302,6 @@
     <div class="btn-row reveal">
       <a class="btn btn-ghost" id="btnCal" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-cal"/></svg>Add to Calendar</a>
     </div>
-    <p class="dress reveal" data-c="dressCode"></p>
   </section>
 
   <!-- 6. RSVP -->
@@ -335,12 +357,6 @@
       <p class="form-msg" id="formMsg" role="status"></p>
     </form>
 
-    <div class="tally reveal" id="tally" hidden>
-      <div><b id="tAttend">0</b><span>Guests coming</span></div>
-      <div><b id="tVeg">0</b><span>Vegetarian</span></div>
-      <div><b id="tNon">0</b><span>Non-vegetarian</span></div>
-      <div><b id="tWishes">0</b><span>Wishes</span></div>
-    </div>
 
     <div class="wishes-sec reveal" id="wishes">
       <p class="kicker">From Family &amp; Friends</p>

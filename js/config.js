@@ -67,7 +67,6 @@ window.INVITE = {
   closing: "We hope to see you and your family there!",
   closingWish: "Happy Deepavali",
   closingNote: "May light triumph over darkness, and may your year ahead shine bright.",
-  dressCode: "Dress code: Traditional / festive wear",
 
   // --- Background music (optional MP3 in assets/music/) ---
   music: ""

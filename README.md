@@ -1,7 +1,7 @@
 # Happy Deepavali · Open House & Housewarming
 
 Digital invitation (e-card) for our Deepavali Open House & Housewarming.
-Theme: warm bronze with gold and orange, marigold garlands, hanging lanterns and string lights. It's a static site (HTML/CSS/JS) with no build step.
+Theme: warm bronze with gold and orange, marigold garlands on every section, kuthu vilakku lamps, hanging lanterns and falling petals. It's a static site (HTML/CSS/JS) with no build step.
 
 **Saturday, 14 November 2026 · 6:00 PM – 10:00 PM**
 No 19, Jalan Rimba 15, Taman Rimba, Bandar Gamuda Cove, Banting, Kuala Langat, 42700 Selangor
@@ -10,10 +10,10 @@ No 19, Jalan Rimba 15, Taman Rimba, Bandar Gamuda Cove, Banting, Kuala Langat, 4
 
 1. **Gold envelope cover**: "Happy Deepavali". Tapping the diya seal opens the envelope and sets off fireworks.
 2. **Deepavali wish**: the wish appears word by word with fireworks, plus a "Light more crackers" button.
-3. **Video**: plays automatically without sound inside a royal arch frame. Guests can tap it to turn the sound on.
+3. **Video**: plays automatically and silently on loop inside a royal arch frame.
 4. **Invitation**: invites guests and their families to the open house and housewarming.
 5. **When & where**: date, time, address, countdown, embedded map, and Google Maps, Waze and Add to Calendar buttons.
-6. **RSVP**: name, phone, attendance, number of guests, vegetarian / non-vegetarian counts and wishes, saved to Google Sheets. Guest and meal totals and a "Wishes for the Family" wall show below the form.
+6. **RSVP**: name, phone, attendance, number of guests, vegetarian / non-vegetarian counts and wishes, saved to Google Sheets. A "Wishes for the Family" wall shows below the form; guest and meal totals stay in the Sheet.
 7. **Short write-up**: "A Home Filled With Light".
 8. **Closing**: "We hope to see you…" and Happy Deepavali.
 
