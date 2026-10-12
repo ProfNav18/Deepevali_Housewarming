@@ -9,7 +9,7 @@ window.INVITE = {
   // --- Cover & envelope ---
   title: "Happy Deepavali",
   subtitle: "Festival of Lights · 2026",
-  hosts: "The Family",                // e.g. "Naveen & Family" — shown on the envelope and closing
+  hosts: "Mahendran & Family",        // shown in the invitation and closing
   envelopeTo: "To You & Your Beloved Family",
   envelopeHint: "Tap the seal to open",
 
@@ -22,12 +22,12 @@ window.INVITE = {
     "sweetness and love that lasts all year long."
   ],
 
-  // --- Video (upload later) ---
+  // --- Video ---
   // Option 1: put an MP4 in assets/video/ and set video: "assets/video/deepavali.mp4"
   // Option 2: paste a YouTube link, e.g. "https://youtu.be/XXXXXXXXXXX"
   // Leave empty to show the "coming soon" frame.
-  video: "",
-  videoPoster: "",
+  video: "assets/video/deepavali.mp4",
+  videoPoster: "assets/video/deepavali-poster.jpg",
 
   // --- Invitation text ---
   inviteOpening: "With hearts full of light and gratitude,",
