@@ -49,6 +49,13 @@ window.INVITE = {
   mapsUrl: "",   // optional: paste a Google Maps share link; empty = search by address
   wazeUrl: "",   // optional: paste a Waze share link; empty = search by address
 
+  // --- Contacts for further details (shown under the date & place) ---
+  // phone: Malaysian mobile number as written locally
+  contacts: [
+    { name: "Mahendran", phone: "0123117635" },
+    { name: "Naveen", phone: "0123885197" }
+  ],
+
   // --- RSVP (Google Sheets) ---
   // Paste the Google Apps Script Web App URL here (ends with /exec). Empty = demo mode.
   rsvpApiUrl: "https://script.google.com/macros/s/AKfycbw3_vPHW5-r7RZE84CXAPehEEiKDvAscAi9Raxy0Ml7kl3KpBeOixYqZBZOm5x5in9Tiw/exec",

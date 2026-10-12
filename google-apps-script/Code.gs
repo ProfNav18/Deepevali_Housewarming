@@ -8,7 +8,8 @@
  *      Who has access: Anyone
  * 4. Copy the Web App URL (ends with /exec) into js/config.js -> rsvpApiUrl.
  *
- * Every RSVP is added as one row in the "RSVP" tab.
+ * Every RSVP is added as one row in the "RSVP" tab. Columns J–K show live totals
+ * (people attending, vegetarian, non-vegetarian, families attending / not attending).
  * To download as Excel: File > Download > Microsoft Excel (.xlsx).
  * To hide an unsuitable wish, delete that row in the Sheet.
  */
@@ -21,11 +22,39 @@ function sheet_() {
   var sh = ss.getSheetByName(TAB);
   if (!sh) {
     sh = ss.insertSheet(TAB);
-    sh.appendRow(HEADER);
+    sh.getRange(1, 1, 1, HEADER.length).setValues([HEADER]).setFontWeight('bold');
     sh.setFrozenRows(1);
-    sh.getRange(1, 1, 1, HEADER.length).setFontWeight('bold');
   }
+  ensureSummary_(sh);
   return sh;
+}
+
+// Totals in columns J–K, recalculated by the Sheet itself whenever a row is added
+var SUMMARY = [
+  ['Summary', 'Total'],
+  ['Total people attending', '=SUMIF(D2:D,"Attending",E2:E)'],
+  ['Vegetarian', '=SUMIF(D2:D,"Attending",F2:F)'],
+  ['Non-vegetarian', '=SUMIF(D2:D,"Attending",G2:G)'],
+  ['Families attending', '=COUNTIF(D2:D,"Attending")'],
+  ['Families not attending', '=COUNTIF(D2:D,"Not Attending")']
+];
+function ensureSummary_(sh) {
+  if (sh.getRange('J1').getValue() === 'Summary') return;
+  var box = sh.getRange(1, 10, SUMMARY.length, 2);
+  box.setValues(SUMMARY);
+  box.setBorder(true, true, true, true, true, true);
+  sh.getRange(1, 10, 1, 2).setFontWeight('bold').setBackground('#f6d27a');
+  sh.getRange(2, 10, SUMMARY.length - 1, 1).setFontWeight('bold').setBackground('#fff3d6');
+  sh.getRange(2, 11, SUMMARY.length - 1, 1).setFontWeight('bold').setFontSize(12).setHorizontalAlignment('center');
+  sh.setColumnWidth(10, 190);
+}
+
+// Next empty row in the RSVP columns (A–H), ignoring the totals in J–K
+function nextRow_(sh) {
+  var colA = sh.getRange('A:A').getValues();
+  var last = 0;
+  for (var i = colA.length - 1; i >= 0; i--) { if (colA[i][0] !== '') { last = i + 1; break; } }
+  return last + 1;
 }
 
 function json_(obj) {
@@ -42,7 +71,9 @@ function unquote_(s) { return String(s).replace(/^'/, ''); }
 
 // Public read: guest and meal totals + wishes (phone numbers are never returned)
 function doGet() {
-  var rows = sheet_().getDataRange().getValues().slice(1);
+  var sh = sheet_();
+  var count = nextRow_(sh) - 2;
+  var rows = count > 0 ? sh.getRange(2, 1, count, HEADER.length).getValues() : [];
   var attending = 0, notAttending = 0, veg = 0, nonVeg = 0, wishes = [];
   rows.forEach(function (r) {
     if (r[3] === 'Attending') {
@@ -72,7 +103,8 @@ function doPost(e) {
     var lock = LockService.getScriptLock();
     lock.waitLock(10000);
     try {
-      sheet_().appendRow([new Date(), name, phone, attendance, guests, veg, nonVeg, wishes]);
+      var sh = sheet_();
+      sh.getRange(nextRow_(sh), 1, 1, HEADER.length).setValues([[new Date(), name, phone, attendance, guests, veg, nonVeg, wishes]]);
     } finally {
       lock.releaseLock();
     }

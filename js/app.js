@@ -337,6 +337,35 @@
       '&details=' + encodeURIComponent((C.title || '') + ' — ' + (C.hosts || ''));
   })();
 
+  /* ---------- contacts ---------- */
+  (function () {
+    var list = $('#contactList'), people = C.contacts || [];
+    if (!people.length) { $('#contacts').hidden = true; return; }
+    // 0123117635 -> "012-311 7635" for display, "60123117635" for WhatsApp / calls
+    function pretty(n) { n = n.replace(/\D/g, ''); return n.length === 10 ? n.slice(0, 3) + '-' + n.slice(3, 6) + ' ' + n.slice(6) : n.length === 11 ? n.slice(0, 3) + '-' + n.slice(3, 7) + ' ' + n.slice(7) : n; }
+    function intl(n) { n = n.replace(/\D/g, ''); return n.charAt(0) === '0' ? '6' + n : n; }
+    people.forEach(function (p) {
+      var row = el('div', 'contact');
+      var who = el('div', 'contact-who');
+      who.appendChild(el('b', 'contact-name', p.name));
+      who.appendChild(el('span', 'contact-num', pretty(p.phone)));
+      row.appendChild(who);
+      var acts = el('div', 'contact-acts');
+      var call = el('a', 'btn contact-btn');
+      call.href = 'tel:+' + intl(p.phone);
+      call.setAttribute('aria-label', 'Call ' + p.name);
+      call.appendChild(useSvg('i-phone')); call.appendChild(document.createTextNode('Call'));
+      var wa = el('a', 'btn btn-wa contact-btn');
+      wa.href = 'https://wa.me/' + intl(p.phone) + '?text=' + encodeURIComponent('Hi ' + p.name + ', about the Deepavali Open House on 14 November…');
+      wa.target = '_blank'; wa.rel = 'noopener';
+      wa.setAttribute('aria-label', 'WhatsApp ' + p.name);
+      wa.appendChild(useSvg('i-wa')); wa.appendChild(document.createTextNode('WhatsApp'));
+      acts.appendChild(call); acts.appendChild(wa);
+      row.appendChild(acts);
+      list.appendChild(row);
+    });
+  })();
+
   /* ---------- countdown ---------- */
   (function () {
     var target = new Date(C.start).getTime(), box = $('#countdown');
