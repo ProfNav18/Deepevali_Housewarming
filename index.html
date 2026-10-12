@@ -12,7 +12,7 @@
 <meta property="og:image" content="assets/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Great+Vibes&family=Outfit:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Great+Vibes&family=Outfit:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="locked">
@@ -189,18 +189,28 @@
     <h1 class="cover-title" data-c="title"></h1>
     <svg class="divider" aria-hidden="true"><use href="#divider"/></svg>
 
+    <p class="cover-event">Open House &amp; Housewarming</p>
+
     <div class="envelope" id="envelope">
       <div class="env-back"></div>
       <div class="env-letter">
-        <span class="env-letter-om">ॐ</span>
-        <span>Shubh Deepavali</span>
+        <div class="letter-inner">
+          <span class="env-letter-om">ॐ</span>
+          <span class="letter-script">Shubh Deepavali</span>
+          <span class="letter-from">from <b data-c="hosts"></b></span>
+        </div>
       </div>
       <div class="env-front">
         <div class="env-pattern"></div>
+        <svg class="env-mandala" aria-hidden="true"><use href="#rangoli"/></svg>
+        <div class="env-trim"></div>
+        <svg class="env-corner bl" aria-hidden="true"><use href="#fcorner"/></svg>
+        <svg class="env-corner br" aria-hidden="true"><use href="#fcorner"/></svg>
         <p class="env-to" data-c="envelopeTo"></p>
         <p class="env-date" data-c="dateShort"></p>
       </div>
-      <div class="env-flap"></div>
+      <div class="env-flap"><div class="env-flap-trim"></div></div>
+      <div class="env-ribbon" aria-hidden="true"></div>
       <button class="env-seal" id="openBtn" type="button" aria-label="Open the invitation">
         <svg aria-hidden="true"><use href="#diya"/></svg>
         <span>Open</span>
@@ -308,7 +318,7 @@
   <section class="sec rsvp" id="rsvp">
     <p class="kicker reveal">Will You Join Us?</p>
     <h2 class="sec-title reveal">RSVP</h2>
-    <p class="rsvp-note reveal" data-c="rsvpDeadline"></p>
+    <p class="rsvp-note plaque reveal" data-c="rsvpDeadline"></p>
 
     <form class="card rsvp-form reveal" id="rsvpForm" novalidate>
       <label>Your name
@@ -363,7 +373,7 @@
       <h3 class="wishes-title">Wishes for the Family</h3>
       <svg class="divider" aria-hidden="true"><use href="#divider"/></svg>
       <div class="wishes-wall" id="wishesWall" aria-live="polite">
-        <p class="wishes-empty">Be the first to send your Deepavali wishes using the form above.</p>
+        <p class="wishes-empty plaque">Be the first to send your Deepavali wishes using the form above.</p>
       </div>
     </div>
   </section>
@@ -380,10 +390,12 @@
   <!-- 8. Closing -->
   <section class="sec closing" id="closing">
     <svg class="closing-rangoli reveal" aria-hidden="true"><use href="#rangoli"/></svg>
-    <p class="closing-line reveal" data-c="closing"></p>
+    <p class="closing-line plaque reveal" data-c="closing"></p>
     <h2 class="closing-wish reveal" data-c="closingWish"></h2>
-    <p class="closing-note reveal" data-c="closingNote"></p>
-    <p class="closing-from reveal">With love, <span data-c="hosts"></span></p>
+    <div class="plaque reveal">
+      <p class="closing-note" data-c="closingNote"></p>
+      <p class="closing-from">With love, <span data-c="hosts"></span></p>
+    </div>
     <div class="closing-diyas reveal" aria-hidden="true">
       <svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg>
     </div>

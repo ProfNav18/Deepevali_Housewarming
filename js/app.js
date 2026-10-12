@@ -405,7 +405,7 @@
     var wall = $('#wishesWall'); wall.innerHTML = '';
     var list = (data.wishes || []).slice(0, 100);
     if (!list.length) {
-      wall.appendChild(el('p', 'wishes-empty', 'Be the first to send your Deepavali wishes using the form above.'));
+      wall.appendChild(el('p', 'wishes-empty plaque', 'Be the first to send your Deepavali wishes using the form above.'));
       return;
     }
     list.forEach(function (w, i) {
