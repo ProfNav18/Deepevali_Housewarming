@@ -304,6 +304,10 @@ svg { display: block; }
   clip-path: polygon(2.5% 0, 97.5% 0, 50% 54%);
 }
 
+/* Keep the front pocket and ribbon on their own layers. Without this, Chrome merges
+   them while the letter rises and briefly draws the pocket without its V-shaped cut. */
+.env-front, .env-ribbon { will-change: transform; }
+
 /* silk ribbon that unties when opened */
 .env-ribbon {
   position: absolute; left: -3%; right: -3%; top: calc(39% - 14px); height: 28px; z-index: 4;
