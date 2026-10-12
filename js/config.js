@@ -58,7 +58,7 @@ window.INVITE = {
   // --- Short write-up ---
   storyHeading: "A Home Filled With Light",
   story: [
-    "This Deepavali is extra special for us — it is our first festival in our new home.",
+    "This Deepavali is extra special for us, it is our first festival in our new home.",
     "Every lamp we light here carries a prayer of thanks for the journey that brought us to this doorstep, and for the family and friends who walked it with us.",
     "Come share the sweets, the laughter and the lights. A home only truly becomes a home when it is filled with the people we love."
   ],
