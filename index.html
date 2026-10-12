@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Deepavali · Open House &amp; Housewarming</title>
+<meta name="description" content="You and your family are warmly invited to our Deepavali Open House &amp; Housewarming, Saturday 14 November 2026, 6pm – 10pm, Bandar Gamuda Cove, Banting.">
+<meta name="theme-color" content="#2a0710">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Happy Deepavali · Open House &amp; Housewarming">
+<meta property="og:description" content="Saturday · 14 November 2026 · 6pm – 10pm · Bandar Gamuda Cove, Banting">
+<meta property="og:image" content="assets/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Outfit:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="locked">
+
+<!-- ============ SVG sprite: diya, rangoli, icons ============ -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1bf"/>
+      <stop offset=".4" stop-color="#e8c26a"/>
+      <stop offset=".7" stop-color="#b8862b"/>
+      <stop offset="1" stop-color="#7a5414"/>
+    </linearGradient>
+    <radialGradient id="flame" cx=".5" cy=".7" r=".6">
+      <stop offset="0" stop-color="#fffbe0"/>
+      <stop offset=".35" stop-color="#ffd54a"/>
+      <stop offset=".75" stop-color="#ff8a00"/>
+      <stop offset="1" stop-color="#e2361a" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Diya (oil lamp) -->
+    <symbol id="diya" viewBox="0 0 100 80">
+      <g class="diya-flame">
+        <ellipse cx="50" cy="26" rx="16" ry="22" fill="url(#flame)" opacity=".55"/>
+        <path d="M50 6C56 18 60 26 56 34C53 39 47 39 44 34C40 26 44 18 50 6Z" fill="url(#flame)"/>
+        <path d="M50 20C52 26 53 30 51 33C50 35 49 35 48 33C47 30 48 26 50 20Z" fill="#fffbe0"/>
+      </g>
+      <path d="M6 44C14 44 30 46 50 46C70 46 86 44 94 44C92 60 74 72 50 72C26 72 8 60 6 44Z" fill="url(#gold)" stroke="#6b4510" stroke-width="1"/>
+      <path d="M10 48C24 52 76 52 90 48" fill="none" stroke="#fff1bf" stroke-width="1.2" opacity=".7"/>
+      <g fill="#7a1022"><circle cx="30" cy="58" r="2.4"/><circle cx="50" cy="61" r="2.8"/><circle cx="70" cy="58" r="2.4"/></g>
+      <path d="M36 72H64L60 78H40Z" fill="url(#gold)" stroke="#6b4510" stroke-width=".8"/>
+    </symbol>
+
+    <!-- Rangoli / kolam medallion -->
+    <symbol id="rangoli" viewBox="-50 -50 100 100">
+      <g fill="none" stroke="url(#gold)" stroke-width="1.1">
+        <circle r="46"/><circle r="40" stroke-dasharray="2 3"/>
+        <g id="rPetal"><path d="M0 -38C8 -30 8 -18 0 -10C-8 -18 -8 -30 0 -38Z"/><circle cy="-42" r="2"/></g>
+        <use href="#rPetal" transform="rotate(45)"/><use href="#rPetal" transform="rotate(90)"/>
+        <use href="#rPetal" transform="rotate(135)"/><use href="#rPetal" transform="rotate(180)"/>
+        <use href="#rPetal" transform="rotate(225)"/><use href="#rPetal" transform="rotate(270)"/>
+        <use href="#rPetal" transform="rotate(315)"/>
+        <circle r="10"/><circle r="5" fill="url(#gold)"/>
+      </g>
+    </symbol>
+
+    <!-- Divider -->
+    <symbol id="divider" viewBox="0 0 240 24">
+      <g fill="none" stroke="url(#gold)" stroke-width="1.2" stroke-linecap="round">
+        <path d="M4 12H92M148 12H236"/>
+        <path d="M92 12C100 4 108 4 112 12C108 20 100 20 92 12Z"/>
+        <path d="M148 12C140 4 132 4 128 12C132 20 140 20 148 12Z"/>
+      </g>
+      <path d="M120 2L128 12L120 22L112 12Z" fill="url(#gold)"/>
+      <circle cx="4" cy="12" r="2" fill="url(#gold)"/><circle cx="236" cy="12" r="2" fill="url(#gold)"/>
+    </symbol>
+
+    <!-- Icons -->
+    <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10H21M8 3V7M16 3V7"/></g></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7V12L15 14"/></g></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22C12 22 19 15 19 9.5A7 7 0 0 0 5 9.5C5 15 12 22 12 22Z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+    <symbol id="i-gmaps" viewBox="0 0 24 24"><path d="M12 2A7 7 0 0 0 5 9C5 14.3 12 22 12 22S19 14.3 19 9A7 7 0 0 0 12 2Z" fill="currentColor"/><circle cx="12" cy="9" r="2.6" fill="#2a0710"/></symbol>
+    <symbol id="i-waze" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 15.5C3.5 14.5 3 13 3 11.5 3 7 7 3.5 12 3.5S21 7 21 11.5C21 16 17 18.5 12.5 18.5H9"/><circle cx="7.5" cy="19" r="1.6"/><circle cx="15.5" cy="19" r="1.6"/></g><g fill="currentColor"><circle cx="9.5" cy="10" r="1"/><circle cx="14.5" cy="10" r="1"/></g><path d="M9.5 13.5C11 15 13 15 14.5 13.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 18V5L20 3V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></g></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5V19L19 12Z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ Background: floating lights ============ -->
+<div class="bg-glow" aria-hidden="true"></div>
+<div class="bg-sparkles" id="sparkles" aria-hidden="true"></div>
+<canvas id="fireworks" aria-hidden="true"></canvas>
+
+<!-- ============ 1. COVER: gold envelope ============ -->
+<section class="cover" id="cover" aria-label="Invitation envelope">
+  <div class="cover-inner">
+    <svg class="cover-rangoli" aria-hidden="true"><use href="#rangoli"/></svg>
+    <p class="cover-kicker" data-c="subtitle"></p>
+    <h1 class="cover-title" data-c="title"></h1>
+    <svg class="divider" aria-hidden="true"><use href="#divider"/></svg>
+
+    <div class="envelope" id="envelope">
+      <div class="env-back"></div>
+      <div class="env-letter">
+        <span class="env-letter-om">ॐ</span>
+        <span>Shubh Deepavali</span>
+      </div>
+      <div class="env-front">
+        <div class="env-pattern"></div>
+        <p class="env-to" data-c="envelopeTo"></p>
+        <p class="env-date" data-c="dateShort"></p>
+      </div>
+      <div class="env-flap"></div>
+      <button class="env-seal" id="openBtn" type="button" aria-label="Open the invitation">
+        <svg aria-hidden="true"><use href="#diya"/></svg>
+        <span>Open</span>
+      </button>
+    </div>
+    <p class="cover-hint" data-c="envelopeHint"></p>
+
+    <div class="cover-diyas" aria-hidden="true">
+      <svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAIN ============ -->
+<main id="main" aria-hidden="true">
+
+  <!-- 2. Wish reveal -->
+  <section class="sec wish" id="wish">
+    <div class="card card-wish reveal">
+      <svg class="wish-diya" aria-hidden="true"><use href="#diya"/></svg>
+      <p class="kicker">A Wish For You</p>
+      <h2 class="script" data-c="wishHeading"></h2>
+      <svg class="divider" aria-hidden="true"><use href="#divider"/></svg>
+      <div class="wish-text" id="wishText"></div>
+      <button class="btn btn-ghost" id="moreCrackers" type="button">✨ Light more crackers</button>
+    </div>
+  </section>
+
+  <!-- 3. Video -->
+  <section class="sec video-sec" id="video">
+    <p class="kicker reveal">A Little Something For You</p>
+    <div class="video-frame reveal" id="videoFrame">
+      <div class="video-soon" id="videoSoon">
+        <svg aria-hidden="true"><use href="#rangoli"/></svg>
+        <p class="script">Video coming soon</p>
+        <span>Stay tuned ✨</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Invitation -->
+  <section class="sec invite" id="invite">
+    <div class="card reveal">
+      <svg class="medallion" aria-hidden="true"><use href="#rangoli"/></svg>
+      <p class="invite-open" data-c="inviteOpening"></p>
+      <p class="invite-hosts" data-c="hosts"></p>
+      <p class="invite-body" data-c="inviteBody"></p>
+      <h2 class="event-name" data-c="eventName"></h2>
+      <svg class="divider" aria-hidden="true"><use href="#divider"/></svg>
+      <p class="invite-close" data-c="inviteClosing"></p>
+    </div>
+  </section>
+
+  <!-- 5. Details -->
+  <section class="sec details" id="details">
+    <p class="kicker reveal">Save The Date</p>
+    <h2 class="sec-title reveal">When &amp; Where</h2>
+
+    <div class="detail-grid">
+      <div class="detail reveal">
+        <svg class="ico" aria-hidden="true"><use href="#i-cal"/></svg>
+        <h3>Date</h3>
+        <p data-c="dateDisplay"></p>
+      </div>
+      <div class="detail reveal">
+        <svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>
+        <h3>Time</h3>
+        <p data-c="time"></p>
+      </div>
+      <div class="detail detail-wide reveal">
+        <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+        <h3 data-c="venue"></h3>
+        <p data-c="address"></p>
+      </div>
+    </div>
+
+    <div class="countdown reveal" id="countdown" aria-live="polite">
+      <div><b id="cdD">0</b><span>Days</span></div>
+      <div><b id="cdH">0</b><span>Hours</span></div>
+      <div><b id="cdM">0</b><span>Minutes</span></div>
+      <div><b id="cdS">0</b><span>Seconds</span></div>
+    </div>
+
+    <div class="map-wrap reveal">
+      <iframe id="mapFrame" title="Map to the venue" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+    <div class="btn-row reveal">
+      <a class="btn" id="btnMaps" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-gmaps"/></svg>Google Maps</a>
+      <a class="btn" id="btnWaze" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-waze"/></svg>Waze</a>
+    </div>
+    <div class="btn-row reveal">
+      <a class="btn btn-ghost" id="btnCal" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-cal"/></svg>Add to Calendar</a>
+    </div>
+    <p class="dress reveal" data-c="dressCode"></p>
+  </section>
+
+  <!-- 6. RSVP -->
+  <section class="sec rsvp" id="rsvp">
+    <p class="kicker reveal">Will You Join Us?</p>
+    <h2 class="sec-title reveal">RSVP</h2>
+    <p class="rsvp-note reveal" data-c="rsvpDeadline"></p>
+
+    <form class="card rsvp-form reveal" id="rsvpForm" novalidate>
+      <label>Your name
+        <input name="name" type="text" maxlength="60" required autocomplete="name" placeholder="e.g. Kumar & Family">
+      </label>
+      <label>Phone number
+        <input name="phone" type="tel" maxlength="20" autocomplete="tel" placeholder="e.g. 012-345 6789">
+      </label>
+      <fieldset class="choice">
+        <legend>Will you be attending?</legend>
+        <label><input type="radio" name="attending" value="Attending" required><span>Yes, we'll be there 🪔</span></label>
+        <label><input type="radio" name="attending" value="Not Attending"><span>Sorry, can't make it</span></label>
+      </fieldset>
+      <label class="pax-field" id="paxField">Number of guests
+        <select name="pax" id="paxSelect"></select>
+      </label>
+      <label>Wishes for the family <small>(optional)</small>
+        <textarea name="wishes" maxlength="300" rows="3" placeholder="Share your Deepavali wishes…"></textarea>
+      </label>
+      <button class="btn btn-solid" type="submit" id="rsvpBtn">Send RSVP</button>
+      <p class="form-msg" id="formMsg" role="status"></p>
+    </form>
+
+    <div class="tally reveal" id="tally" hidden>
+      <div><b id="tAttend">0</b><span>Guests coming</span></div>
+      <div><b id="tWishes">0</b><span>Wishes received</span></div>
+    </div>
+    <div class="wishes-wall" id="wishesWall" aria-live="polite"></div>
+  </section>
+
+  <!-- 7. Story -->
+  <section class="sec story" id="story">
+    <div class="card reveal">
+      <svg class="story-diyas" aria-hidden="true"><use href="#diya"/></svg>
+      <h2 class="script" data-c="storyHeading"></h2>
+      <div class="story-text" id="storyText"></div>
+    </div>
+  </section>
+
+  <!-- 8. Closing -->
+  <section class="sec closing" id="closing">
+    <svg class="closing-rangoli reveal" aria-hidden="true"><use href="#rangoli"/></svg>
+    <p class="closing-line reveal" data-c="closing"></p>
+    <h2 class="closing-wish reveal" data-c="closingWish"></h2>
+    <p class="closing-note reveal" data-c="closingNote"></p>
+    <p class="closing-from reveal">With love, <span data-c="hosts"></span></p>
+    <div class="closing-diyas reveal" aria-hidden="true">
+      <svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg><svg><use href="#diya"/></svg>
+    </div>
+  </section>
+</main>
+
+<button class="music-btn" id="musicBtn" type="button" aria-label="Play or pause music" hidden>
+  <svg aria-hidden="true"><use href="#i-music"/></svg>
+</button>
+<audio id="bgm" loop preload="none"></audio>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
