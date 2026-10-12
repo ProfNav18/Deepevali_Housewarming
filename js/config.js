@@ -51,7 +51,7 @@ window.INVITE = {
 
   // --- RSVP (Google Sheets) ---
   // Paste the Google Apps Script Web App URL here (ends with /exec). Empty = demo mode.
-  rsvpApiUrl: "",
+  rsvpApiUrl: "https://script.google.com/macros/s/AKfycbw3_vPHW5-r7RZE84CXAPehEEiKDvAscAi9Raxy0Ml7kl3KpBeOixYqZBZOm5x5in9Tiw/exec",
   maxPax: 10,
   rsvpDeadline: "Kindly RSVP by 7 November 2026",
 
