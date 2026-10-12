@@ -2,18 +2,18 @@
    Deepavali Open House & Housewarming — rich gold theme
    ============================================================ */
 :root {
-  --maroon: #4a0b1a;
-  --maroon-deep: #2a0710;
-  --plum: #1a0409;
+  --maroon: #5a1e00;
+  --maroon-deep: #3a1400;
+  --plum: #5a1f02;
   --gold: #e8c26a;
   --gold-light: #fff1bf;
   --gold-dark: #9a6b1e;
-  --marigold: #ff9f1c;
-  --magenta: #c2185b;
-  --ink: #fbeed0;
-  --muted: #d9bf8c;
-  --gold-grad: linear-gradient(135deg, #fff1bf 0%, #e8c26a 35%, #b8862b 65%, #f3d98c 100%);
-  --card-bg: linear-gradient(160deg, rgba(90, 16, 34, .92), rgba(36, 6, 14, .94));
+  --marigold: #ffd27a;
+  --magenta: #c1272d;
+  --ink: #fff4dc;
+  --muted: #f3d29a;
+  --gold-grad: linear-gradient(135deg, #fff6d0 0%, #ffd56b 30%, #f2a93b 60%, #ffe39a 100%);
+  --card-bg: linear-gradient(160deg, rgba(176, 66, 8, .94), rgba(96, 32, 0, .95));
   --radius: 18px;
   --serif: "Cormorant Garamond", Georgia, serif;
   --display: "Cinzel Decorative", "Cinzel", serif;
@@ -27,7 +27,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(ellipse at 50% 0%, #6e1427 0%, var(--maroon-deep) 45%, var(--plum) 100%) fixed;
+  background: var(--plum);
   background-color: var(--plum);
   color: var(--ink);
   font-family: var(--serif);
@@ -43,9 +43,10 @@ svg { display: block; }
 .bg-glow {
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background:
-    radial-gradient(circle at 15% 20%, rgba(255, 159, 28, .12), transparent 35%),
-    radial-gradient(circle at 85% 70%, rgba(232, 194, 106, .10), transparent 40%),
-    radial-gradient(circle at 50% 110%, rgba(194, 24, 91, .18), transparent 45%);
+    radial-gradient(circle at 15% 20%, rgba(255, 159, 28, .22), transparent 35%),
+    radial-gradient(circle at 85% 70%, rgba(255, 196, 80, .16), transparent 40%),
+    radial-gradient(circle at 50% 110%, rgba(255, 110, 20, .35), transparent 50%),
+    radial-gradient(ellipse at 50% 0%, #c9560c 0%, #9a3a06 40%, #6a2402 80%, #5a1f02 100%);
 }
 .bg-glow::after {
   content: ""; position: absolute; inset: 0; opacity: .06;
@@ -83,7 +84,7 @@ svg { display: block; }
   display: grid; place-items: center;
   padding: 24px 16px;
   background:
-    radial-gradient(ellipse at 50% 35%, rgba(110, 20, 39, .9), rgba(26, 4, 9, .98) 70%),
+    radial-gradient(ellipse at 50% 35%, rgba(214, 92, 14, .95), rgba(120, 40, 2, .97) 55%, rgba(36, 12, 0, .99) 85%),
     var(--plum);
   transition: opacity 1s ease, visibility 1s;
   overflow: hidden;
@@ -163,8 +164,8 @@ svg { display: block; }
 .env-seal {
   position: absolute; z-index: 4; left: 50%; top: 44%; transform: translate(-50%, -50%);
   width: 78px; height: 78px; border-radius: 50%; border: 0; cursor: pointer;
-  background: radial-gradient(circle at 35% 30%, #c2304e, #7a1022 60%, #4a0712);
-  box-shadow: 0 0 0 3px #e8c26a, 0 0 0 6px rgba(122, 16, 34, .7), 0 8px 22px rgba(0, 0, 0, .5), 0 0 30px rgba(255, 180, 60, .45);
+  background: radial-gradient(circle at 35% 30%, #ff8a2a, #d4520c 55%, #8a2a00);
+  box-shadow: 0 0 0 3px #ffd56b, 0 0 0 6px rgba(150, 50, 0, .7), 0 8px 22px rgba(0, 0, 0, .5), 0 0 30px rgba(255, 180, 60, .45);
   color: var(--gold-light); font-family: var(--caps); font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
   transition: transform .4s, opacity .4s;
@@ -173,7 +174,7 @@ svg { display: block; }
 .env-seal svg { width: 44px; height: 36px; margin-top: -6px; }
 .env-seal:hover { transform: translate(-50%, -50%) scale(1.06); }
 .env-seal:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 6px; }
-@keyframes sealGlow { 50% { box-shadow: 0 0 0 3px #e8c26a, 0 0 0 6px rgba(122, 16, 34, .7), 0 8px 22px rgba(0, 0, 0, .5), 0 0 50px rgba(255, 180, 60, .8); } }
+@keyframes sealGlow { 50% { box-shadow: 0 0 0 3px #ffd56b, 0 0 0 6px rgba(150, 50, 0, .7), 0 8px 22px rgba(0, 0, 0, .5), 0 0 50px rgba(255, 180, 60, .8); } }
 
 .envelope.open .env-seal { opacity: 0; transform: translate(-50%, -50%) scale(.4); pointer-events: none; }
 .envelope.open .env-flap { transform: rotateX(180deg); z-index: 0; }
@@ -248,7 +249,7 @@ main { position: relative; z-index: 2; }
 .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 26px 0; }
 .countdown div {
   padding: 14px 4px; border-radius: 12px; border: 1px solid rgba(232, 194, 106, .35);
-  background: rgba(0, 0, 0, .2);
+  background: rgba(60, 18, 0, .35);
 }
 .countdown b { display: block; font-family: var(--caps); font-size: clamp(26px, 7vw, 36px); line-height: 1.1; font-weight: 600; }
 .countdown span { font-family: var(--sans); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
@@ -284,7 +285,7 @@ main { position: relative; z-index: 2; }
 .rsvp-form small { text-transform: none; letter-spacing: 0; color: var(--muted); font-family: var(--sans); }
 .rsvp-form input[type=text], .rsvp-form input[type=tel], .rsvp-form select, .rsvp-form textarea {
   width: 100%; font: 400 17px var(--sans); color: var(--ink);
-  background: rgba(0, 0, 0, .28); border: 1px solid rgba(232, 194, 106, .4); border-radius: 10px;
+  background: rgba(60, 18, 0, .4); border: 1px solid rgba(232, 194, 106, .4); border-radius: 10px;
   padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s;
 }
 .rsvp-form select option { background: var(--maroon-deep); }
@@ -296,7 +297,7 @@ main { position: relative; z-index: 2; }
 .choice input { position: absolute; opacity: 0; }
 .choice span {
   display: block; padding: 12px 14px; border-radius: 10px; font: 400 16px var(--sans); letter-spacing: 0; text-transform: none;
-  color: var(--ink); border: 1px solid rgba(232, 194, 106, .4); background: rgba(0, 0, 0, .2); transition: all .2s;
+  color: var(--ink); border: 1px solid rgba(232, 194, 106, .4); background: rgba(60, 18, 0, .35); transition: all .2s;
 }
 .choice input:checked + span { background: var(--gold-grad); color: var(--maroon-deep); border-color: transparent; font-weight: 500; }
 .choice input:focus-visible + span { outline: 2px solid var(--gold-light); outline-offset: 2px; }
@@ -307,12 +308,12 @@ main { position: relative; z-index: 2; }
 .form-msg.err { color: #ff9a8a; }
 
 .tally { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 28px 0 18px; }
-.tally div { padding: 14px; border-radius: 12px; border: 1px solid rgba(232, 194, 106, .35); background: rgba(0, 0, 0, .2); }
+.tally div { padding: 14px; border-radius: 12px; border: 1px solid rgba(232, 194, 106, .35); background: rgba(60, 18, 0, .35); }
 .tally b { display: block; font-family: var(--caps); font-size: 32px; }
 .tally span { font-family: var(--sans); font-size: 12px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
 .wishes-wall { display: grid; gap: 12px; max-height: 420px; overflow-y: auto; padding: 2px 4px; text-align: left; }
 .wish-item {
-  padding: 14px 16px; border-radius: 12px; background: rgba(0, 0, 0, .22);
+  padding: 14px 16px; border-radius: 12px; background: rgba(60, 18, 0, .38);
   border-left: 3px solid var(--gold);
 }
 .wish-item p { margin: 0 0 4px; font-style: italic; }
@@ -336,7 +337,7 @@ main { position: relative; z-index: 2; }
 /* ---------- music button ---------- */
 .music-btn {
   position: fixed; right: 16px; bottom: 16px; z-index: 40; width: 48px; height: 48px; border-radius: 50%;
-  border: 1px solid var(--gold); background: rgba(42, 7, 16, .85); color: var(--gold); cursor: pointer;
+  border: 1px solid var(--gold); background: rgba(90, 30, 0, .88); color: var(--gold); cursor: pointer;
   display: grid; place-items: center; backdrop-filter: blur(6px);
 }
 .music-btn[hidden] { display: none; }
