@@ -254,6 +254,7 @@
       paragraphs($('#wishText'), C.wish, !reduceMotion);
       FW.show(9, 260);
       startReveal();
+      document.dispatchEvent(new Event('invite-opened'));
     }, 1700);
   }
   $('#openBtn').addEventListener('click', openInvite);
@@ -273,34 +274,61 @@
     items.forEach(function (n) { io.observe(n); });
   }
 
-  /* ---------- video ---------- */
+  /* ---------- video: autoplays muted inside the royal frame ---------- */
   (function () {
     var src = (C.video || '').trim(); if (!src) return;
-    var frame = $('#videoFrame'), yt = src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/);
+    var frame = $('#videoFrame'), soundBtn = $('#soundBtn');
+    var yt = src.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/);
     frame.innerHTML = '';
     if (yt) {
-      var isShort = /shorts\//.test(src);
-      if (!isShort) frame.classList.add('landscape');
+      if (!/shorts\//.test(src)) frame.classList.add('landscape');
       var f = el('iframe');
-      f.src = 'https://www.youtube-nocookie.com/embed/' + yt[1] + '?rel=0&playsinline=1';
+      f.src = 'https://www.youtube-nocookie.com/embed/' + yt[1] + '?rel=0&playsinline=1&autoplay=1&mute=1&loop=1&playlist=' + yt[1];
       f.title = 'Deepavali video';
       f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
       f.allowFullscreen = true;
       frame.appendChild(f);
-    } else {
-      var v = el('video');
-      v.src = src; v.controls = true; v.playsInline = true; v.preload = 'metadata';
-      if (C.videoPoster) v.poster = C.videoPoster;
-      v.addEventListener('loadedmetadata', function () { if (v.videoWidth > v.videoHeight) frame.classList.add('landscape'); });
-      v.addEventListener('play', function () { if (!audio.paused) { audio.pause(); v.addEventListener('pause', function () { if (C.music) audio.play().catch(function () {}); }, { once: true }); } });
-      frame.appendChild(v);
+      return;
     }
+    var v = el('video');
+    v.muted = true; v.defaultMuted = true; v.setAttribute('muted', '');
+    v.autoplay = true; v.loop = true; v.playsInline = true;
+    v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+    v.preload = 'auto';
+    // MP4 for phones; optional WebM fallback for browsers without H.264
+    [[src, 'video/mp4'], [C.videoWebm, 'video/webm']].forEach(function (s) {
+      if (!s[0]) return;
+      var so = el('source'); so.src = s[0]; so.type = s[1]; v.appendChild(so);
+    });
+    if (C.videoPoster) v.poster = C.videoPoster;
+    v.setAttribute('aria-label', 'Deepavali video. Tap to turn sound on or off.');
+    v.addEventListener('loadedmetadata', function () { if (v.videoWidth > v.videoHeight) frame.classList.add('landscape'); });
+    frame.appendChild(v);
+
+    function tryPlay() { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    // Play while the video is on screen, pause when scrolled away
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (ents) {
+        ents.forEach(function (e) { if (e.isIntersecting) tryPlay(); else v.pause(); });
+      }, { threshold: 0.3 }).observe(v);
+    }
+    document.addEventListener('invite-opened', tryPlay);
+
+    function setSound(on) {
+      v.muted = !on;
+      soundBtn.textContent = on ? 'Mute video' : 'Tap for sound';
+      if (on) { tryPlay(); if (C.music && !audio.paused) audio.pause(); }
+    }
+    soundBtn.hidden = false;
+    soundBtn.addEventListener('click', function () { setSound(v.muted); });
+    v.addEventListener('click', function () { setSound(v.muted); });
   })();
 
   /* ---------- map & navigation ---------- */
   (function () {
     var q = encodeURIComponent(C.address || '');
-    $('#mapFrame').src = 'https://maps.google.com/maps?q=' + q + '&z=16&output=embed';
+    var map = $('#mapFrame');
+    if (map) map.src = 'https://maps.google.com/maps?q=' + q + '&z=16&output=embed';
     $('#btnMaps').href = C.mapsUrl || 'https://www.google.com/maps/search/?api=1&query=' + q;
     $('#btnWaze').href = C.wazeUrl || 'https://waze.com/ul?q=' + q + '&navigate=yes';
     function gcal(d) { return new Date(d).toISOString().replace(/[-:]|\.\d{3}/g, ''); }
@@ -329,35 +357,80 @@
   })();
 
   /* ---------- RSVP ---------- */
-  var form = $('#rsvpForm'), msg = $('#formMsg'), btn = $('#rsvpBtn');
-  var paxSel = $('#paxSelect'), paxField = $('#paxField');
-  for (var i = 1; i <= (C.maxPax || 10); i++) {
-    var o = el('option', null, i + (i === 1 ? ' person' : ' people')); o.value = i; paxSel.appendChild(o);
-  }
+  var form = $('#rsvpForm'), msg = $('#formMsg'), btn = $('#rsvpBtn'), paxField = $('#paxField');
+  var MAX = C.maxPax || 10;
   var demo = !C.rsvpApiUrl;
   var DEMO_KEY = 'deepavali-rsvp-demo';
+
+  // Guest and meal counters: vegetarian + non-vegetarian always add up to the guest count
+  var count = { pax: 1, veg: 1, nonveg: 0 };
+  function renderCounts() {
+    ['pax', 'veg', 'nonveg'].forEach(function (k) {
+      $('#out-' + k).textContent = count[k];
+      var box = $('.stepper[data-key="' + k + '"]');
+      var lo = k === 'pax' ? 1 : 0, hi = k === 'pax' ? MAX : count.pax;
+      box.querySelector('[data-d="-1"]').disabled = count[k] <= lo;
+      box.querySelector('[data-d="1"]').disabled = count[k] >= hi;
+    });
+    $('#mealNote').textContent = count.pax + (count.pax === 1 ? ' guest' : ' guests') +
+      ' · ' + count.veg + ' vegetarian · ' + count.nonveg + ' non-vegetarian';
+  }
+  function step(key, delta) {
+    if (key === 'pax') {
+      count.pax = Math.min(MAX, Math.max(1, count.pax + delta));
+      if (count.veg > count.pax) count.veg = count.pax;
+      count.nonveg = count.pax - count.veg;
+    } else {
+      var other = key === 'veg' ? 'nonveg' : 'veg';
+      count[key] = Math.min(count.pax, Math.max(0, count[key] + delta));
+      count[other] = count.pax - count[key];
+    }
+    renderCounts();
+  }
+  $$('.stepper').forEach(function (box) {
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b || b.disabled) return;
+      step(box.getAttribute('data-key'), Number(b.getAttribute('data-d')));
+    });
+  });
+  renderCounts();
 
   form.addEventListener('change', function (e) {
     if (e.target.name === 'attending') paxField.hidden = e.target.value !== 'Attending';
   });
 
+  // Wishes are kept in memory too, so they show even if browser storage is blocked
+  var memRows = load(DEMO_KEY, []);
+  var lastNewName = null;
+
   function renderWall(data) {
     $('#tally').hidden = false;
     $('#tAttend').textContent = data.attending || 0;
+    $('#tVeg').textContent = data.veg || 0;
+    $('#tNon').textContent = data.nonVeg || 0;
     $('#tWishes').textContent = (data.wishes || []).length;
     var wall = $('#wishesWall'); wall.innerHTML = '';
-    (data.wishes || []).slice(0, 50).forEach(function (w) {
-      var item = el('div', 'wish-item');
-      item.appendChild(el('p', null, '“' + w.wish + '”'));
+    var list = (data.wishes || []).slice(0, 100);
+    if (!list.length) {
+      wall.appendChild(el('p', 'wishes-empty', 'Be the first to send your Deepavali wishes using the form above.'));
+      return;
+    }
+    list.forEach(function (w, i) {
+      var item = el('div', 'wish-item' + (i === 0 && w.name === lastNewName ? ' new' : ''));
+      item.appendChild(el('p', null, w.wish));
       item.appendChild(el('b', null, '— ' + w.name));
       wall.appendChild(item);
     });
   }
   function demoData() {
-    var rows = load(DEMO_KEY, []), att = 0, wishes = [];
-    rows.forEach(function (r) { if (r.attending === 'Attending') att += Number(r.pax) || 1; if (r.wishes) wishes.unshift({ name: r.name, wish: r.wishes }); });
-    wishes.push({ name: 'Priya & Family', wish: 'Happy Deepavali and congratulations on your beautiful new home! 🪔' });
-    return { attending: att + 4, wishes: wishes };
+    var att = 0, veg = 0, non = 0, wishes = [];
+    memRows.forEach(function (r) {
+      if (r.attending === 'Attending') { att += Number(r.pax) || 1; veg += Number(r.veg) || 0; non += Number(r.nonveg) || 0; }
+      if (r.wishes) wishes.unshift({ name: r.name, wish: r.wishes });
+    });
+    // Example entry so the wall is never empty in the preview
+    wishes.push({ name: 'Priya & Family (example)', wish: 'Happy Deepavali and congratulations on your beautiful new home! May it always be filled with light and laughter.' });
+    return { attending: att + 4, veg: veg + 3, nonVeg: non + 1, wishes: wishes };
   }
   function loadWall() {
     if (demo) { renderWall(demoData()); return; }
@@ -371,11 +444,14 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var fd = new FormData(form);
+    var coming = fd.get('attending') === 'Attending';
     var data = {
       name: (fd.get('name') || '').trim(),
       phone: (fd.get('phone') || '').trim(),
       attending: fd.get('attending') || '',
-      pax: fd.get('attending') === 'Attending' ? fd.get('pax') : 0,
+      pax: coming ? count.pax : 0,
+      veg: coming ? count.veg : 0,
+      nonveg: coming ? count.nonveg : 0,
       wishes: (fd.get('wishes') || '').trim()
     };
     msg.classList.remove('err');
@@ -385,15 +461,18 @@
     btn.disabled = true; msg.textContent = 'Sending…';
     var done = function () {
       btn.disabled = false;
-      msg.textContent = data.attending === 'Attending'
+      msg.textContent = coming
         ? 'Thank you! We can’t wait to celebrate with you 🪔'
         : 'Thank you for letting us know. Happy Deepavali! ✨';
+      lastNewName = data.wishes ? data.name : null;
       form.reset(); paxField.hidden = false;
+      count = { pax: 1, veg: 1, nonveg: 0 }; renderCounts();
       FW.show(5, 220);
       loadWall();
+      if (data.wishes) setTimeout(function () { $('#wishes').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 900);
     };
     if (demo) {
-      var rows = load(DEMO_KEY, []); rows.push(data); save(DEMO_KEY, rows);
+      memRows.push(data); save(DEMO_KEY, memRows);
       setTimeout(done, 500); return;
     }
     // No Content-Type header = text/plain, so there is no CORS preflight to Apps Script

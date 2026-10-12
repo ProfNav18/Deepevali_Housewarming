@@ -10,10 +10,10 @@ No 19, Jalan Rimba 15, Taman Rimba, Bandar Gamuda Cove, Banting, Kuala Langat, 4
 
 1. **Gold envelope cover**: "Happy Deepavali". Tapping the diya seal opens the envelope and sets off fireworks.
 2. **Deepavali wish**: the wish appears word by word with fireworks, plus a "Light more crackers" button.
-3. **Video**: shows a "coming soon" frame until you add your video.
+3. **Video**: plays automatically without sound inside a royal arch frame. Guests can tap it to turn the sound on.
 4. **Invitation**: invites guests and their families to the open house and housewarming.
 5. **When & where**: date, time, address, countdown, embedded map, and Google Maps, Waze and Add to Calendar buttons.
-6. **RSVP**: name, phone, attendance, guests and wishes, saved to Google Sheets. A wishes wall shows below the form.
+6. **RSVP**: name, phone, attendance, number of guests, vegetarian / non-vegetarian counts and wishes, saved to Google Sheets. Guest and meal totals and a "Wishes for the Family" wall show below the form.
 7. **Short write-up**: "A Home Filled With Light".
 8. **Closing**: "We hope to see you…" and Happy Deepavali.
 
@@ -47,7 +47,7 @@ Portrait and landscape videos are detected automatically.
 3. Go to **Deploy → New deployment → Web app**. Set Execute as to *Me* and Who has access to *Anyone*, then authorise.
 4. Copy the `/exec` URL into `js/config.js` → `rsvpApiUrl`.
 
-Each RSVP becomes a row: Timestamp, Name, Phone, Attendance, Guests, Wishes.
+Each RSVP becomes a row: Timestamp, Name, Phone, Attendance, Guests, Vegetarian, Non-Vegetarian, Wishes.
 To get an Excel file, use **File → Download → Microsoft Excel (.xlsx)**.
 Phone numbers are never shown on the public page.
 

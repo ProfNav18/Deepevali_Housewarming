@@ -95,6 +95,33 @@
       <path d="M11 11C14 8 18 9 18 12C15 12 13 14 12 17C9 16 8 13 11 11Z" fill="#e8a020"/>
     </symbol>
 
+    <!-- Page frame corner -->
+    <symbol id="fcorner" viewBox="0 0 64 64">
+      <g fill="none" stroke="url(#gold)" stroke-linecap="round">
+        <path d="M4 60V18C4 10 10 4 18 4H60" stroke-width="2.4"/>
+        <path d="M10 54V22C10 15 15 10 22 10H54" stroke-width="1.2"/>
+        <path d="M16 42C16 27 27 16 42 16" stroke-width="1.6"/>
+        <path d="M22 34C24 27 27 24 34 22" stroke-width="1.4"/>
+      </g>
+      <path d="M14 14C19 9 27 11 27 17C22 17 18 20 17 26C11 25 9 19 14 14Z" fill="url(#gold)"/>
+      <circle cx="17" cy="17" r="2.2" fill="#c1272d"/>
+      <g fill="url(#gold)"><circle cx="4" cy="62" r="2"/><circle cx="62" cy="4" r="2"/><circle cx="10" cy="56" r="1.4"/><circle cx="56" cy="10" r="1.4"/></g>
+    </symbol>
+
+    <!-- Royal arch crown (kalasam finial with scrolls) -->
+    <symbol id="crown" viewBox="0 0 160 70">
+      <g fill="url(#gold)" stroke="#6b4510" stroke-width=".8">
+        <path d="M80 2L84 15H76Z"/>
+        <circle cx="80" cy="20" r="5"/>
+        <path d="M62 46C62 32 70 26 80 26C90 26 98 32 98 46Z"/>
+        <rect x="56" y="46" width="48" height="7" rx="2"/>
+        <path d="M56 50C44 50 36 42 24 44C14 46 12 58 22 58C28 58 30 52 26 50C34 50 42 58 56 58Z"/>
+        <path d="M104 50C116 50 124 42 136 44C146 46 148 58 138 58C132 58 130 52 134 50C126 50 118 58 104 58Z"/>
+      </g>
+      <g fill="#c1272d"><circle cx="80" cy="38" r="3"/><circle cx="68" cy="49.5" r="1.8"/><circle cx="92" cy="49.5" r="1.8"/></g>
+      <circle cx="80" cy="38" r="1.2" fill="#fff4c2"/>
+    </symbol>
+
     <!-- Divider -->
     <symbol id="divider" viewBox="0 0 240 24">
       <g fill="none" stroke="url(#gold)" stroke-width="1.2" stroke-linecap="round">
@@ -123,6 +150,12 @@
 <svg class="bg-rangoli r2" aria-hidden="true"><use href="#rangoli"/></svg>
 <div class="bg-sparkles" id="sparkles" aria-hidden="true"></div>
 <canvas id="fireworks" aria-hidden="true"></canvas>
+<div class="page-frame" aria-hidden="true">
+  <svg class="pf-corner tl"><use href="#fcorner"/></svg>
+  <svg class="pf-corner tr"><use href="#fcorner"/></svg>
+  <svg class="pf-corner bl"><use href="#fcorner"/></svg>
+  <svg class="pf-corner br"><use href="#fcorner"/></svg>
+</div>
 
 <!-- ============ 1. COVER: gold envelope ============ -->
 <section class="cover" id="cover" aria-label="Invitation envelope">
@@ -175,12 +208,20 @@
   <!-- 3. Video -->
   <section class="sec video-sec" id="video">
     <p class="kicker reveal">A Little Something For You</p>
-    <div class="video-frame reveal" id="videoFrame">
-      <div class="video-soon" id="videoSoon">
-        <svg aria-hidden="true"><use href="#rangoli"/></svg>
-        <p class="script">Video coming soon</p>
-        <span>Stay tuned ✨</span>
+    <div class="royal reveal">
+      <svg class="royal-crown" aria-hidden="true"><use href="#crown"/></svg>
+      <div class="royal-inner">
+        <div class="video-frame" id="videoFrame">
+          <div class="video-soon" id="videoSoon">
+            <svg aria-hidden="true"><use href="#rangoli"/></svg>
+            <p class="script">Video coming soon</p>
+            <span>Stay tuned ✨</span>
+          </div>
+        </div>
       </div>
+      <svg class="royal-c bl" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="royal-c br" aria-hidden="true"><use href="#corner"/></svg>
+      <button class="sound-btn" id="soundBtn" type="button" hidden>Tap for sound</button>
     </div>
   </section>
 
@@ -259,9 +300,34 @@
         <label><input type="radio" name="attending" value="Attending" required><span>Yes, we'll be there 🪔</span></label>
         <label><input type="radio" name="attending" value="Not Attending"><span>Sorry, can't make it</span></label>
       </fieldset>
-      <label class="pax-field" id="paxField">Number of guests
-        <select name="pax" id="paxSelect"></select>
-      </label>
+      <div class="pax-field" id="paxField">
+        <div class="stepper-row">
+          <span class="st-label" id="lblPax">Number of guests</span>
+          <div class="stepper" data-key="pax" role="group" aria-labelledby="lblPax">
+            <button type="button" data-d="-1" aria-label="Fewer guests">−</button>
+            <output id="out-pax" aria-live="polite">1</output>
+            <button type="button" data-d="1" aria-label="More guests">+</button>
+          </div>
+        </div>
+        <p class="meal-title">Meal preference</p>
+        <div class="stepper-row">
+          <span class="st-label" id="lblVeg"><i class="dot veg"></i>Vegetarian</span>
+          <div class="stepper" data-key="veg" role="group" aria-labelledby="lblVeg">
+            <button type="button" data-d="-1" aria-label="Fewer vegetarian meals">−</button>
+            <output id="out-veg" aria-live="polite">1</output>
+            <button type="button" data-d="1" aria-label="More vegetarian meals">+</button>
+          </div>
+        </div>
+        <div class="stepper-row">
+          <span class="st-label" id="lblNon"><i class="dot nonveg"></i>Non-vegetarian</span>
+          <div class="stepper" data-key="nonveg" role="group" aria-labelledby="lblNon">
+            <button type="button" data-d="-1" aria-label="Fewer non-vegetarian meals">−</button>
+            <output id="out-nonveg" aria-live="polite">0</output>
+            <button type="button" data-d="1" aria-label="More non-vegetarian meals">+</button>
+          </div>
+        </div>
+        <p class="meal-note" id="mealNote"></p>
+      </div>
       <label>Wishes for the family <small>(optional)</small>
         <textarea name="wishes" maxlength="300" rows="3" placeholder="Share your Deepavali wishes…"></textarea>
       </label>
@@ -271,9 +337,19 @@
 
     <div class="tally reveal" id="tally" hidden>
       <div><b id="tAttend">0</b><span>Guests coming</span></div>
-      <div><b id="tWishes">0</b><span>Wishes received</span></div>
+      <div><b id="tVeg">0</b><span>Vegetarian</span></div>
+      <div><b id="tNon">0</b><span>Non-vegetarian</span></div>
+      <div><b id="tWishes">0</b><span>Wishes</span></div>
     </div>
-    <div class="wishes-wall" id="wishesWall" aria-live="polite"></div>
+
+    <div class="wishes-sec reveal" id="wishes">
+      <p class="kicker">From Family &amp; Friends</p>
+      <h3 class="wishes-title">Wishes for the Family</h3>
+      <svg class="divider" aria-hidden="true"><use href="#divider"/></svg>
+      <div class="wishes-wall" id="wishesWall" aria-live="polite">
+        <p class="wishes-empty">Be the first to send your Deepavali wishes using the form above.</p>
+      </div>
+    </div>
   </section>
 
   <!-- 7. Story -->

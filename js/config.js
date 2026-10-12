@@ -27,6 +27,7 @@ window.INVITE = {
   // Option 2: paste a YouTube link, e.g. "https://youtu.be/XXXXXXXXXXX"
   // Leave empty to show the "coming soon" frame.
   video: "assets/video/deepavali.mp4",
+  videoWebm: "assets/video/deepavali.webm",   // optional fallback for browsers that cannot play MP4
   videoPoster: "assets/video/deepavali-poster.jpg",
 
   // --- Invitation text ---
