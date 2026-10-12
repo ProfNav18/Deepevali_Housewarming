@@ -1,7 +1,7 @@
 # Happy Deepavali · Open House & Housewarming
 
 Digital invitation (e-card) for our Deepavali Open House & Housewarming.
-Theme: warm caramel beige with gold and orange accents. It's a static site (HTML/CSS/JS) with no build step.
+Theme: warm bronze with gold and orange, marigold garlands, hanging lanterns and string lights. It's a static site (HTML/CSS/JS) with no build step.
 
 **Saturday, 14 November 2026 · 6:00 PM – 10:00 PM**
 No 19, Jalan Rimba 15, Taman Rimba, Bandar Gamuda Cove, Banting, Kuala Langat, 42700 Selangor

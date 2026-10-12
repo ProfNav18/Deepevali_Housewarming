@@ -47,17 +47,122 @@
     }
   })();
 
+  /* ---------- Deepavali decorations ---------- */
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  function useSvg(id, cls) {
+    var s = document.createElementNS(SVGNS, 'svg'), u = document.createElementNS(SVGNS, 'use');
+    if (cls) s.setAttribute('class', cls);
+    s.setAttribute('aria-hidden', 'true');
+    u.setAttribute('href', '#' + id);
+    s.appendChild(u);
+    return s;
+  }
+  var BULBS = ['#ffd34d', '#ff8a1f', '#ff4d4d', '#7ee081', '#ff6fb5', '#6fc8ff'];
+
+  // A string of fairy lights hanging in swags
+  function makeLights(swags, perSwag) {
+    var box = el('div', 'lights'), sag = 30, d = '';
+    box.setAttribute('aria-hidden', 'true');
+    var wire = document.createElementNS(SVGNS, 'svg');
+    wire.setAttribute('class', 'wire');
+    wire.setAttribute('viewBox', '0 0 1000 54');
+    wire.setAttribute('preserveAspectRatio', 'none');
+    for (var s = 0; s < swags; s++) {
+      var x0 = 1000 * s / swags, x1 = 1000 * (s + 1) / swags;
+      d += (s ? ' ' : 'M' + x0 + ' 6') + ' Q' + (x0 + x1) / 2 + ' ' + (6 + 2 * sag) + ' ' + x1 + ' 6';
+      for (var i = 1; i < perSwag; i++) {
+        var t = i / perSwag, b = el('i', 'bulb');
+        b.style.left = (100 * (s + t) / swags) + '%';
+        b.style.top = (6 + 4 * t * (1 - t) * sag + 2) + 'px';
+        b.style.setProperty('--c', BULBS[(s * perSwag + i) % BULBS.length]);
+        b.style.animationDelay = (-Math.random() * 1.6) + 's';
+        box.appendChild(b);
+      }
+    }
+    var path = document.createElementNS(SVGNS, 'path');
+    path.setAttribute('d', d);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', '#3d2410');
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('vector-effect', 'non-scaling-stroke');
+    wire.appendChild(path);
+    box.insertBefore(wire, box.firstChild);
+    return box;
+  }
+
+  // Marigold garland (toran) with hanging strands and mango leaves
+  function makeToran(swags) {
+    var box = el('div', 'toran'), sag = 26, n = 0;
+    box.setAttribute('aria-hidden', 'true');
+    function flower(xPct, yPx) {
+      var f = el('i', 'mg ' + (n++ % 2 ? 'o' : 'y'));
+      f.style.left = xPct + '%'; f.style.top = yPx + 'px';
+      box.appendChild(f);
+    }
+    for (var s = 0; s < swags; s++) {
+      for (var i = 0; i < 12; i++) {
+        var t = i / 12;
+        flower(100 * (s + t) / swags, 8 + 4 * t * (1 - t) * sag);
+      }
+    }
+    for (var k = 0; k <= swags; k++) {
+      var x = Math.min(Math.max(100 * k / swags, 2), 98);
+      for (var j = 1; j <= 4; j++) flower(x, 8 + j * 15);
+      var leaf = el('i', 'leaf');
+      leaf.style.left = x + '%'; leaf.style.top = (8 + 5 * 15 - 4) + 'px';
+      box.appendChild(leaf);
+    }
+    return box;
+  }
+
+  // Lanterns hang from the middle of the first and last garland swags
+  function makeKandils(target, swags) {
+    ['left', 'right'].forEach(function (side) {
+      var k = el('div', 'kandil ' + side);
+      k.style[side] = (50 / swags) + '%';
+      k.appendChild(useSvg('kandil'));
+      target.appendChild(k);
+    });
+  }
+
+  (function decorate() {
+    var narrow = innerWidth < 560;
+    var cover = $('#cover');
+    cover.insertBefore(makeToran(narrow ? 3 : 5), cover.firstChild);
+    makeKandils(cover, narrow ? 3 : 5);
+    cover.appendChild(makeLights(narrow ? 3 : 5, 7));
+
+    ['#wish', '#closing'].forEach(function (id) {
+      var sec = $(id);
+      sec.insertBefore(makeToran(narrow ? 3 : 4), sec.firstChild);
+      makeKandils(sec, narrow ? 3 : 4);
+    });
+    ['#video', '#invite', '#details', '#rsvp', '#story'].forEach(function (id) {
+      var sec = $(id);
+      sec.insertBefore(makeLights(narrow ? 3 : 4, 7), sec.firstChild);
+    });
+    ['#video', '#details'].forEach(function (id) {
+      var row = el('div', 'diya-row');
+      row.setAttribute('aria-hidden', 'true');
+      for (var i = 0; i < 5; i++) row.appendChild(useSvg('diya'));
+      $(id).appendChild(row);
+    });
+    $$('.card, .detail-wide').forEach(function (c) {
+      ['tl', 'tr', 'bl', 'br'].forEach(function (pos) { c.appendChild(useSvg('corner', 'corner ' + pos)); });
+    });
+  })();
+
   /* ---------- fireworks / crackers ---------- */
   var FW = (function () {
     var cv = $('#fireworks'), ctx = cv.getContext('2d');
     var parts = [], rockets = [], raf = null, dpr = Math.min(window.devicePixelRatio || 1, 2);
     var palettes = [
-      ['#e0a020', '#f5c542', '#c47a10'],
-      ['#f07818', '#ffb02e', '#d9a030'],
-      ['#e0305a', '#ff7a90', '#e8b040'],
-      ['#9b4dca', '#c77dff', '#e8b040'],
-      ['#1e88c8', '#4cc9f0', '#e8b040'],
-      ['#2e9d5a', '#6fd08c', '#e8b040']
+      ['#fff1bf', '#ffd25e', '#ffb703'],
+      ['#ff9f1c', '#ffd166', '#fff1bf'],
+      ['#ff4d6d', '#ffb3c6', '#ffd25e'],
+      ['#c77dff', '#e0aaff', '#fff1bf'],
+      ['#4cc9f0', '#bde0fe', '#ffd25e'],
+      ['#80ed99', '#ffd25e', '#fff1bf']
     ];
     function size() { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
     size(); addEventListener('resize', size);
@@ -74,7 +179,7 @@
       // crackle sparks
       for (var j = 0; j < 24; j++) {
         parts.push({ x: x, y: y, vx: (Math.random() - .5) * 3, vy: (Math.random() - .5) * 3, life: 1, decay: 0.02 + Math.random() * 0.02,
-          color: '#f5b400', r: 1, crackle: true, trail: [] });
+          color: '#fffbe0', r: 1, crackle: true, trail: [] });
       }
       run();
     }
@@ -91,7 +196,7 @@
     function frame() {
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, innerWidth, innerHeight);
-      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalCompositeOperation = 'lighter';
       for (var i = rockets.length - 1; i >= 0; i--) {
         var r = rockets[i];
         r.x += r.vx; r.y += r.vy; r.vy *= 0.985;

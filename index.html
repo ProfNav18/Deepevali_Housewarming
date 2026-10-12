@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Happy Deepavali · Open House &amp; Housewarming</title>
 <meta name="description" content="You and your family are warmly invited to our Deepavali Open House &amp; Housewarming, Saturday 14 November 2026, 6pm – 10pm, Bandar Gamuda Cove, Banting.">
-<meta name="theme-color" content="#d9b07a">
+<meta name="theme-color" content="#7a4a1e">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Happy Deepavali · Open House &amp; Housewarming">
 <meta property="og:description" content="Saturday · 14 November 2026 · 6pm – 10pm · Bandar Gamuda Cove, Banting">
 <meta property="og:image" content="assets/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Outfit:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Great+Vibes&family=Outfit:wght@300;400;500&display=swap">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="locked">
@@ -59,6 +59,42 @@
       </g>
     </symbol>
 
+    <linearGradient id="lanternBody" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8a1c0a"/>
+      <stop offset=".35" stop-color="#ff7a1a"/>
+      <stop offset=".5" stop-color="#ffd25e"/>
+      <stop offset=".65" stop-color="#ff7a1a"/>
+      <stop offset="1" stop-color="#8a1c0a"/>
+    </linearGradient>
+
+    <!-- Hanging lantern (kandil) -->
+    <symbol id="kandil" viewBox="0 0 60 200">
+      <path d="M30 0V44" stroke="#e8b040" stroke-width="1.6"/>
+      <circle cx="30" cy="44" r="3" fill="url(#gold)"/>
+      <path d="M20 54H40L36 46H24Z" fill="url(#gold)" stroke="#6b4510" stroke-width=".6"/>
+      <path d="M30 54L52 92L30 140L8 92Z" fill="url(#lanternBody)" stroke="#ffd25e" stroke-width="1.6"/>
+      <path d="M30 54L41 92L30 140L19 92Z" fill="none" stroke="#ffd25e" stroke-width="1" opacity=".8"/>
+      <path d="M8 92H52" stroke="#ffd25e" stroke-width="1.2"/>
+      <path d="M30 80L33 89L42 92L33 95L30 104L27 95L18 92L27 89Z" fill="#fff4c2"/>
+      <circle cx="30" cy="92" r="16" fill="#ffd25e" opacity=".25"/>
+      <path d="M24 140H36L33 148H27Z" fill="url(#gold)" stroke="#6b4510" stroke-width=".6"/>
+      <g stroke="#ffb02e" stroke-width="1.4" stroke-linecap="round">
+        <path d="M27 148V178"/><path d="M30 148V184"/><path d="M33 148V178"/>
+      </g>
+      <circle cx="30" cy="186" r="3" fill="#ff7a1a"/>
+    </symbol>
+
+    <!-- Card corner flourish -->
+    <symbol id="corner" viewBox="0 0 40 40">
+      <g fill="none" stroke="#b07612" stroke-width="1.6" stroke-linecap="round">
+        <path d="M3 36V12C3 7 7 3 12 3H36"/>
+        <path d="M8 30C8 18 18 8 30 8"/>
+        <path d="M14 22C16 17 19 15 24 14"/>
+      </g>
+      <g fill="#c2500c"><circle cx="3" cy="38" r="1.6"/><circle cx="38" cy="3" r="1.6"/></g>
+      <path d="M11 11C14 8 18 9 18 12C15 12 13 14 12 17C9 16 8 13 11 11Z" fill="#e8a020"/>
+    </symbol>
+
     <!-- Divider -->
     <symbol id="divider" viewBox="0 0 240 24">
       <g fill="none" stroke="url(#gold)" stroke-width="1.2" stroke-linecap="round">
@@ -83,6 +119,8 @@
 
 <!-- ============ Background: floating lights ============ -->
 <div class="bg-glow" aria-hidden="true"></div>
+<svg class="bg-rangoli r1" aria-hidden="true"><use href="#rangoli"/></svg>
+<svg class="bg-rangoli r2" aria-hidden="true"><use href="#rangoli"/></svg>
 <div class="bg-sparkles" id="sparkles" aria-hidden="true"></div>
 <canvas id="fireworks" aria-hidden="true"></canvas>
 
