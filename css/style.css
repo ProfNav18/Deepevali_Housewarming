@@ -2,7 +2,7 @@
    Deepavali Open House & Housewarming — warm bronze, gold & orange
    ============================================================ */
 :root {
-  color-scheme: light dark;   /* see index.html: keeps phone dark modes from recolouring the page */
+  color-scheme: only dark;   /* see index.html: phone dark modes never recolour the page */
   /* text on the dark bronze background */
   --on-dark: #fffaf0;
   --on-dark-muted: #fff0d2;
