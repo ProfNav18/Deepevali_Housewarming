@@ -4,17 +4,17 @@
 :root {
   --maroon: #6b2a0a;
   --maroon-deep: #3d1d08;
-  --plum: #f8eedc;
-  --gold: #b07612;
+  --plum: #d9b07a;
+  --gold: #94600c;
   --gold-light: #fff3cf;
   --gold-dark: #8a5a10;
   --marigold: #d2601a;
   --magenta: #c1272d;
   --ink: #3d2410;
-  --muted: #7a5530;
+  --muted: #6e4520;
   --gold-grad: linear-gradient(135deg, #fbe7a8 0%, #f1c45c 35%, #e3a43c 65%, #f8dc8e 100%);
   --text-grad: linear-gradient(135deg, #c98a1c 0%, #a8660c 40%, #d9741a 70%, #95580a 100%);
-  --card-bg: linear-gradient(160deg, #fffaf0, #f7e7c9);
+  --card-bg: linear-gradient(160deg, #fbf0da, #efd6a8);
   --radius: 18px;
   --serif: "Cormorant Garamond", Georgia, serif;
   --display: "Cinzel Decorative", "Cinzel", serif;
@@ -44,10 +44,10 @@ svg { display: block; }
 .bg-glow {
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background:
-    radial-gradient(circle at 10% 15%, rgba(255, 168, 80, .22), transparent 35%),
-    radial-gradient(circle at 90% 65%, rgba(240, 190, 90, .25), transparent 40%),
-    radial-gradient(circle at 50% 110%, rgba(255, 150, 70, .22), transparent 50%),
-    linear-gradient(180deg, #fdf6e8 0%, #f8ecd6 50%, #f3e1c2 100%);
+    radial-gradient(circle at 10% 15%, rgba(232, 120, 40, .28), transparent 38%),
+    radial-gradient(circle at 90% 65%, rgba(214, 150, 50, .32), transparent 42%),
+    radial-gradient(circle at 50% 110%, rgba(200, 90, 30, .3), transparent 50%),
+    linear-gradient(180deg, #ecd3a6 0%, #e2bf86 50%, #d6a96c 100%);
 }
 .bg-glow::after {
   content: ""; position: absolute; inset: 0; opacity: .12;
@@ -85,7 +85,7 @@ svg { display: block; }
   display: grid; place-items: center;
   padding: 24px 16px;
   background:
-    radial-gradient(ellipse at 50% 38%, #fffaf0 0%, #f8ead0 45%, #efd6a8 80%, #e6c58c 100%),
+    radial-gradient(ellipse at 50% 38%, #f6e4c2 0%, #e9c993 45%, #d9aa6a 80%, #c8924f 100%),
     var(--plum);
   transition: opacity 1s ease, visibility 1s;
   overflow: hidden;
