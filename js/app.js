@@ -52,12 +52,12 @@
     var cv = $('#fireworks'), ctx = cv.getContext('2d');
     var parts = [], rockets = [], raf = null, dpr = Math.min(window.devicePixelRatio || 1, 2);
     var palettes = [
-      ['#fff1bf', '#e8c26a', '#ffb703'],
-      ['#ff9f1c', '#ffd166', '#fff1bf'],
-      ['#ff4d6d', '#ffb3c6', '#e8c26a'],
-      ['#c77dff', '#e0aaff', '#fff1bf'],
-      ['#4cc9f0', '#bde0fe', '#e8c26a'],
-      ['#80ed99', '#e8c26a', '#fff1bf']
+      ['#e0a020', '#f5c542', '#c47a10'],
+      ['#f07818', '#ffb02e', '#d9a030'],
+      ['#e0305a', '#ff7a90', '#e8b040'],
+      ['#9b4dca', '#c77dff', '#e8b040'],
+      ['#1e88c8', '#4cc9f0', '#e8b040'],
+      ['#2e9d5a', '#6fd08c', '#e8b040']
     ];
     function size() { cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
     size(); addEventListener('resize', size);
@@ -74,7 +74,7 @@
       // crackle sparks
       for (var j = 0; j < 24; j++) {
         parts.push({ x: x, y: y, vx: (Math.random() - .5) * 3, vy: (Math.random() - .5) * 3, life: 1, decay: 0.02 + Math.random() * 0.02,
-          color: '#fffbe0', r: 0.9, crackle: true, trail: [] });
+          color: '#f5b400', r: 1, crackle: true, trail: [] });
       }
       run();
     }
@@ -91,7 +91,7 @@
     function frame() {
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, innerWidth, innerHeight);
-      ctx.globalCompositeOperation = 'lighter';
+      ctx.globalCompositeOperation = 'source-over';
       for (var i = rockets.length - 1; i >= 0; i--) {
         var r = rockets[i];
         r.x += r.vx; r.y += r.vy; r.vy *= 0.985;
