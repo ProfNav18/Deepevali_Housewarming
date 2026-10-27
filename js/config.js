@@ -75,6 +75,6 @@ window.INVITE = {
   closingWish: "Happy Deepavali",
   closingNote: "May light triumph over darkness, and may your year ahead shine bright.",
 
-  // --- Background music (optional MP3 in assets/music/) ---
-  music: ""
+  // --- Background music: starts when the envelope opens and loops (no mute button) ---
+  music: "assets/music/diwali.mp3"
 };

@@ -232,15 +232,27 @@
     return { burst: burst, launch: launch, show: show };
   })();
 
-  /* ---------- music ---------- */
-  var audio = $('#bgm'), musicBtn = $('#musicBtn');
+  /* ---------- music: starts when the envelope opens, loops, no controls ---------- */
+  var audio = $('#bgm');
+  var musicOn = false;
+  function playMusic() { if (!C.music) return; var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
   if (C.music) {
     audio.src = C.music;
-    musicBtn.hidden = false;
-    audio.addEventListener('error', function () { musicBtn.hidden = true; });
-    musicBtn.addEventListener('click', function () { audio.paused ? audio.play() : audio.pause(); });
-    audio.addEventListener('play', function () { musicBtn.classList.add('playing'); });
-    audio.addEventListener('pause', function () { musicBtn.classList.remove('playing'); });
+    audio.loop = true;
+    audio.preload = 'auto';
+    // Keep the music going: if something pauses it while the page is showing, start it again
+    audio.addEventListener('pause', function () {
+      if (musicOn && !document.hidden) setTimeout(playMusic, 300);
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (musicOn && !document.hidden) playMusic();
+    });
+    // Phone lock-screen / notification controls cannot pause or skip it
+    if ('mediaSession' in navigator) {
+      ['pause', 'stop', 'seekbackward', 'seekforward', 'previoustrack', 'nexttrack', 'seekto'].forEach(function (a) {
+        try { navigator.mediaSession.setActionHandler(a, function () { playMusic(); }); } catch (e) {}
+      });
+    }
   }
 
   /* ---------- open envelope ---------- */
@@ -248,7 +260,8 @@
   function openInvite() {
     if (opened) return; opened = true;
     $('#envelope').classList.add('open');
-    if (C.music) audio.play().catch(function () {});
+    musicOn = true;
+    playMusic();   // inside the tap, so phones allow sound
     var r = $('#openBtn').getBoundingClientRect();
     setTimeout(function () { FW.burst(r.left + r.width / 2, r.top, true); }, 350);
     setTimeout(function () {
