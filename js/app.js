@@ -507,6 +507,8 @@
       pax: coming ? count.pax : 0,
       veg: coming ? count.veg : 0,
       nonveg: coming ? count.nonveg : 0,
+      // e.g. " wxy  1234, bcd 5 " -> "WXY 1234, BCD 5"
+      carPlate: coming ? (fd.get('carPlate') || '').toUpperCase().replace(/[^A-Z0-9 ,-]/g, '').replace(/\s+/g, ' ').replace(/\s*,\s*/g, ', ').replace(/^[ ,]+|[ ,]+$/g, '') : '',
       wishes: (fd.get('wishes') || '').trim()
     };
     msg.classList.remove('err');

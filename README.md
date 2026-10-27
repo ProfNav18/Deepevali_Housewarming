@@ -47,7 +47,7 @@ Portrait and landscape videos are detected automatically.
 3. Go to **Deploy → New deployment → Web app**. Set Execute as to *Me* and Who has access to *Anyone*, then authorise.
 4. Copy the `/exec` URL into `js/config.js` → `rsvpApiUrl`.
 
-Each RSVP becomes a row: Timestamp, Name, Phone, Attendance, Guests, Vegetarian, Non-Vegetarian, Wishes.
+Each RSVP becomes a row: Timestamp, Name, Phone, Attendance, Guests, Vegetarian, Non-Vegetarian, Wishes, Car Plate. Columns J–K show live totals.
 To get an Excel file, use **File → Download → Microsoft Excel (.xlsx)**.
 Phone numbers are never shown on the public page.
 

@@ -550,6 +550,12 @@ main { position: relative; z-index: 2; overflow-x: clip; }
 .contact-btn { min-height: 48px; padding: 8px 12px; font-size: 15px; }
 .btn-wa { background: linear-gradient(135deg, #3ad070, #1f9d4f); color: #fff; box-shadow: 0 6px 16px rgba(20, 60, 30, .3), 0 0 0 1px rgba(255, 255, 255, .4) inset; }
 
+/* car number plate */
+.car-field { margin-top: 6px; padding-top: 12px; border-top: 1px dashed rgba(170, 110, 20, .5); }
+#carPlate { text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
+#carPlate::placeholder { text-transform: none; letter-spacing: 0; font-weight: 500; }
+.car-note { font-size: 13.5px !important; }
+
 /* floating "scroll down for more details" hint */
 .scroll-hint {
   position: fixed; left: 50%; bottom: calc(26px + env(safe-area-inset-bottom, 0px)); z-index: 57;

@@ -8,14 +8,15 @@
  *      Who has access: Anyone
  * 4. Copy the Web App URL (ends with /exec) into js/config.js -> rsvpApiUrl.
  *
- * Every RSVP is added as one row in the "RSVP" tab. Columns J–K show live totals
- * (people attending, vegetarian, non-vegetarian, families attending / not attending).
+ * Every RSVP is added as one row in the "RSVP" tab (columns A–I, including Car Plate).
+ * Columns J–K show live totals (people attending, vegetarian, non-vegetarian,
+ * families attending / not attending, families coming by car).
  * To download as Excel: File > Download > Microsoft Excel (.xlsx).
  * To hide an unsuitable wish, delete that row in the Sheet.
  */
 
 var TAB = 'RSVP';
-var HEADER = ['Timestamp', 'Name', 'Phone', 'Attendance', 'Guests', 'Vegetarian', 'Non-Vegetarian', 'Wishes'];
+var HEADER = ['Timestamp', 'Name', 'Phone', 'Attendance', 'Guests', 'Vegetarian', 'Non-Vegetarian', 'Wishes', 'Car Plate'];
 
 function sheet_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -24,6 +25,10 @@ function sheet_() {
     sh = ss.insertSheet(TAB);
     sh.getRange(1, 1, 1, HEADER.length).setValues([HEADER]).setFontWeight('bold');
     sh.setFrozenRows(1);
+  }
+  // Sheets made before the car plate option get the new column heading in I1
+  if (sh.getRange(1, HEADER.length).getValue() !== HEADER[HEADER.length - 1]) {
+    sh.getRange(1, HEADER.length).setValue(HEADER[HEADER.length - 1]).setFontWeight('bold');
   }
   ensureSummary_(sh);
   return sh;
@@ -36,10 +41,12 @@ var SUMMARY = [
   ['Vegetarian', '=SUMIF(D2:D,"Attending",F2:F)'],
   ['Non-vegetarian', '=SUMIF(D2:D,"Attending",G2:G)'],
   ['Families attending', '=COUNTIF(D2:D,"Attending")'],
-  ['Families not attending', '=COUNTIF(D2:D,"Not Attending")']
+  ['Families not attending', '=COUNTIF(D2:D,"Not Attending")'],
+  ['Families coming by car', '=COUNTIF(I2:I,"?*")']
 ];
 function ensureSummary_(sh) {
-  if (sh.getRange('J1').getValue() === 'Summary') return;
+  // Rebuild the table if it is missing or older (fewer rows) than this version
+  if (sh.getRange(SUMMARY.length, 10).getValue() === SUMMARY[SUMMARY.length - 1][0]) return;
   var box = sh.getRange(1, 10, SUMMARY.length, 2);
   box.setValues(SUMMARY);
   box.setBorder(true, true, true, true, true, true);
@@ -99,12 +106,13 @@ function doPost(e) {
     var nonVeg = Math.min(Math.max(parseInt(d.nonveg, 10) || 0, 0), guests - veg);
     var phone = clean_(d.phone, 20);
     var wishes = clean_(d.wishes, 300);
+    var carPlate = attendance === 'Attending' ? clean_(String(d.carPlate || '').toUpperCase().replace(/[^A-Z0-9 ,-]/g, ''), 40) : '';
 
     var lock = LockService.getScriptLock();
     lock.waitLock(10000);
     try {
       var sh = sheet_();
-      sh.getRange(nextRow_(sh), 1, 1, HEADER.length).setValues([[new Date(), name, phone, attendance, guests, veg, nonVeg, wishes]]);
+      sh.getRange(nextRow_(sh), 1, 1, HEADER.length).setValues([[new Date(), name, phone, attendance, guests, veg, nonVeg, wishes, carPlate]]);
     } finally {
       lock.releaseLock();
     }
