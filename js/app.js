@@ -272,8 +272,28 @@
       FW.show(9, 260);
       startReveal();
       document.dispatchEvent(new Event('invite-opened'));
+      showScrollHint();
     }, 1700);
   }
+  /* ---------- floating "scroll down" hint ---------- */
+  var hint = $('#scrollHint');
+  function hideHint() {
+    if (hint.hidden || hint.classList.contains('out')) return;
+    hint.classList.add('out');
+    setTimeout(function () { hint.hidden = true; }, 500);
+  }
+  function showScrollHint() {
+    hint.hidden = false;
+    var start = window.scrollY;
+    window.addEventListener('scroll', function onScroll() {
+      if (window.scrollY - start > 120) { hideHint(); window.removeEventListener('scroll', onScroll); }
+    }, { passive: true });
+  }
+  hint.addEventListener('click', function () {
+    hideHint();
+    $('#video').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  });
+
   $('#openBtn').addEventListener('click', openInvite);
   $('#moreCrackers').addEventListener('click', function () { FW.show(7, 200); });
 

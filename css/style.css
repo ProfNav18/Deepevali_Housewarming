@@ -550,6 +550,27 @@ main { position: relative; z-index: 2; overflow-x: clip; }
 .contact-btn { min-height: 48px; padding: 8px 12px; font-size: 15px; }
 .btn-wa { background: linear-gradient(135deg, #3ad070, #1f9d4f); color: #fff; box-shadow: 0 6px 16px rgba(20, 60, 30, .3), 0 0 0 1px rgba(255, 255, 255, .4) inset; }
 
+/* floating "scroll down for more details" hint */
+.scroll-hint {
+  position: fixed; left: 50%; bottom: calc(26px + env(safe-area-inset-bottom, 0px)); z-index: 57;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+  padding: 10px 22px 6px; border-radius: 999px; cursor: pointer;
+  font: 700 16px var(--sans); letter-spacing: .03em; white-space: nowrap; color: #fff6e0;
+  background: linear-gradient(160deg, rgba(70, 30, 4, .94), rgba(40, 15, 0, .95));
+  border: 2px solid #f0c25a;
+  box-shadow: 0 0 0 4px rgba(255, 210, 110, .2), 0 10px 26px rgba(20, 5, 0, .5), 0 0 22px rgba(255, 190, 70, .45);
+  animation: hintIn .6s ease both, hintFloat 2.2s ease-in-out .6s infinite;
+  transition: opacity .45s ease;
+}
+.scroll-hint svg { width: 26px; height: 22px; color: #ffd36b; animation: hintArrow 1.2s ease-in-out infinite; }
+.scroll-hint:focus-visible { outline: 3px solid #fff3cf; outline-offset: 4px; }
+.scroll-hint.out { opacity: 0; pointer-events: none; }
+.scroll-hint[hidden] { display: none; }
+@keyframes hintIn { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes hintFloat { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -6px); } }
+@keyframes hintArrow { 0%, 100% { transform: translateY(-2px); opacity: .7; } 50% { transform: translateY(4px); opacity: 1; } }
+
 /* dark plaque so light text stays easy to read */
 .plaque {
   margin: 0 auto 22px; max-width: 520px; padding: 12px 18px; border-radius: 14px;
