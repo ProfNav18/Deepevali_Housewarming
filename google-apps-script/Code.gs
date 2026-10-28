@@ -1,5 +1,5 @@
 /**
- * RSVP & Wishes — Deepavali Open House & Housewarming
+ * RSVP — Deepavali Open House & Housewarming
  * ---------------------------------------------------
  * 1. Create a new Google Sheet > Extensions > Apps Script.
  * 2. Delete the starter code, paste this file, Save.
@@ -8,15 +8,14 @@
  *      Who has access: Anyone
  * 4. Copy the Web App URL (ends with /exec) into js/config.js -> rsvpApiUrl.
  *
- * Every RSVP is added as one row in the "RSVP" tab (columns A–I, including Car Plate).
+ * Every RSVP is added as one row in the "RSVP" tab (columns A–H, ending with Car Plate).
  * Columns J–K show live totals (people attending, vegetarian, non-vegetarian,
  * families attending / not attending, families coming by car).
  * To download as Excel: File > Download > Microsoft Excel (.xlsx).
- * To hide an unsuitable wish, delete that row in the Sheet.
  */
 
 var TAB = 'RSVP';
-var HEADER = ['Timestamp', 'Name', 'Phone', 'Attendance', 'Guests', 'Vegetarian', 'Non-Vegetarian', 'Wishes', 'Car Plate'];
+var HEADER = ['Timestamp', 'Name', 'Phone', 'Attendance', 'Guests', 'Vegetarian', 'Non-Vegetarian', 'Car Plate'];
 
 function sheet_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -26,7 +25,13 @@ function sheet_() {
     sh.getRange(1, 1, 1, HEADER.length).setValues([HEADER]).setFontWeight('bold');
     sh.setFrozenRows(1);
   }
-  // Sheets made before the car plate option get the new column heading in I1
+  // One-time tidy-up of Sheets made when the form still had wishes:
+  // remove that column (H) so Car Plate moves into H, then redraw the totals in J–K
+  if (sh.getRange(1, 8).getValue() === 'Wishes') {
+    sh.deleteColumn(8);
+    sh.getRange(1, 9, 20, 3).clear();
+  }
+  // Sheets made before the car plate option get the heading in H1
   if (sh.getRange(1, HEADER.length).getValue() !== HEADER[HEADER.length - 1]) {
     sh.getRange(1, HEADER.length).setValue(HEADER[HEADER.length - 1]).setFontWeight('bold');
   }
@@ -42,7 +47,7 @@ var SUMMARY = [
   ['Non-vegetarian', '=SUMIF(D2:D,"Attending",G2:G)'],
   ['Families attending', '=COUNTIF(D2:D,"Attending")'],
   ['Families not attending', '=COUNTIF(D2:D,"Not Attending")'],
-  ['Families coming by car', '=COUNTIF(I2:I,"?*")']
+  ['Families coming by car', '=COUNTIF(H2:H,"?*")']
 ];
 function ensureSummary_(sh) {
   // Rebuild the table if it is missing or older (fewer rows) than this version
@@ -74,25 +79,21 @@ function clean_(s, max) {
   s = String(s == null ? '' : s).trim().slice(0, max);
   return /^[=+\-@]/.test(s) ? "'" + s : s;
 }
-function unquote_(s) { return String(s).replace(/^'/, ''); }
 
-// Public read: guest and meal totals + wishes (phone numbers are never returned)
+// Public read: guest and meal totals only (names and phone numbers are never returned)
 function doGet() {
   var sh = sheet_();
   var count = nextRow_(sh) - 2;
   var rows = count > 0 ? sh.getRange(2, 1, count, HEADER.length).getValues() : [];
-  var attending = 0, notAttending = 0, veg = 0, nonVeg = 0, wishes = [];
+  var attending = 0, notAttending = 0, veg = 0, nonVeg = 0;
   rows.forEach(function (r) {
     if (r[3] === 'Attending') {
       attending += Number(r[4]) || 1;
       veg += Number(r[5]) || 0;
       nonVeg += Number(r[6]) || 0;
     } else if (r[3] === 'Not Attending') notAttending += 1;
-    var w = unquote_(r[7]).trim();
-    if (w) wishes.push({ name: unquote_(r[1]), wish: w });
   });
-  wishes.reverse(); // newest first
-  return json_({ ok: true, attending: attending, notAttending: notAttending, veg: veg, nonVeg: nonVeg, wishes: wishes });
+  return json_({ ok: true, attending: attending, notAttending: notAttending, veg: veg, nonVeg: nonVeg });
 }
 
 function doPost(e) {
@@ -105,14 +106,13 @@ function doPost(e) {
     var veg = Math.min(Math.max(parseInt(d.veg, 10) || 0, 0), guests);
     var nonVeg = Math.min(Math.max(parseInt(d.nonveg, 10) || 0, 0), guests - veg);
     var phone = clean_(d.phone, 20);
-    var wishes = clean_(d.wishes, 300);
     var carPlate = attendance === 'Attending' ? clean_(String(d.carPlate || '').toUpperCase().replace(/[^A-Z0-9 ,-]/g, ''), 40) : '';
 
     var lock = LockService.getScriptLock();
     lock.waitLock(10000);
     try {
       var sh = sheet_();
-      sh.getRange(nextRow_(sh), 1, 1, HEADER.length).setValues([[new Date(), name, phone, attendance, guests, veg, nonVeg, wishes, carPlate]]);
+      sh.getRange(nextRow_(sh), 1, 1, HEADER.length).setValues([[new Date(), name, phone, attendance, guests, veg, nonVeg, carPlate]]);
     } finally {
       lock.releaseLock();
     }

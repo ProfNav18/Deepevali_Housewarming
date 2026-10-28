@@ -13,7 +13,7 @@ No 19, Jalan Rimba 15, Taman Rimba, Bandar Gamuda Cove, Banting, Kuala Langat, 4
 3. **Video**: plays automatically and silently on loop inside a royal arch frame.
 4. **Invitation**: invites guests and their families to the open house and housewarming.
 5. **When & where**: date, time, address, countdown, embedded map, and Google Maps, Waze and Add to Calendar buttons.
-6. **RSVP**: name, phone, attendance, number of guests, vegetarian / non-vegetarian counts and wishes, saved to Google Sheets. A "Wishes for the Family" wall shows below the form; guest and meal totals stay in the Sheet.
+6. **RSVP**: name, phone, attendance, number of guests, vegetarian / non-vegetarian counts and an optional car number plate, saved to Google Sheets.
 7. **Short write-up**: "A Home Filled With Light".
 8. **Closing**: "We hope to see you…" and Happy Deepavali.
 
@@ -47,7 +47,7 @@ Portrait and landscape videos are detected automatically.
 3. Go to **Deploy → New deployment → Web app**. Set Execute as to *Me* and Who has access to *Anyone*, then authorise.
 4. Copy the `/exec` URL into `js/config.js` → `rsvpApiUrl`.
 
-Each RSVP becomes a row: Timestamp, Name, Phone, Attendance, Guests, Vegetarian, Non-Vegetarian, Wishes, Car Plate. Columns J–K show live totals.
+Each RSVP becomes a row: Timestamp, Name, Phone, Attendance, Guests, Vegetarian, Non-Vegetarian, Car Plate. Columns J–K show live totals.
 To get an Excel file, use **File → Download → Microsoft Excel (.xlsx)**.
 Phone numbers are never shown on the public page.
 

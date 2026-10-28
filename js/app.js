@@ -142,7 +142,7 @@
     });
 
     // Kuthu vilakku beside the main headings and in the cards
-    ['#video > .kicker', '#details .sec-title', '#rsvp .sec-title', '.wishes-title', '.closing-wish', '.medallion', '.story-diyas', '.cover-title']
+    ['#video > .kicker', '#details .sec-title', '#rsvp .sec-title', '.closing-wish', '.medallion', '.story-diyas', '.cover-title']
       .forEach(function (s) { flankWithLamps($(s)); });
 
     ['#video', '#details'].forEach(function (id) {
@@ -459,42 +459,8 @@
     if (e.target.name === 'attending') paxField.hidden = e.target.value !== 'Attending';
   });
 
-  // Wishes are kept in memory too, so they show even if browser storage is blocked
+  // RSVPs in demo mode stay in this browser only
   var memRows = load(DEMO_KEY, []);
-  var lastNewName = null;
-
-  function renderWall(data) {
-    var wall = $('#wishesWall'); wall.innerHTML = '';
-    var list = (data.wishes || []).slice(0, 100);
-    if (!list.length) {
-      wall.appendChild(el('p', 'wishes-empty plaque', 'Be the first to send your Deepavali wishes using the form above.'));
-      return;
-    }
-    list.forEach(function (w, i) {
-      var item = el('div', 'wish-item' + (i === 0 && w.name === lastNewName ? ' new' : ''));
-      item.appendChild(el('p', null, w.wish));
-      item.appendChild(el('b', null, '— ' + w.name));
-      wall.appendChild(item);
-    });
-  }
-  function demoData() {
-    var att = 0, veg = 0, non = 0, wishes = [];
-    memRows.forEach(function (r) {
-      if (r.attending === 'Attending') { att += Number(r.pax) || 1; veg += Number(r.veg) || 0; non += Number(r.nonveg) || 0; }
-      if (r.wishes) wishes.unshift({ name: r.name, wish: r.wishes });
-    });
-    // Example entry so the wall is never empty in the preview
-    wishes.push({ name: 'Priya & Family (example)', wish: 'Happy Deepavali and congratulations on your beautiful new home! May it always be filled with light and laughter.' });
-    return { attending: att + 4, veg: veg + 3, nonVeg: non + 1, wishes: wishes };
-  }
-  function loadWall() {
-    if (demo) { renderWall(demoData()); return; }
-    fetch(C.rsvpApiUrl + '?t=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return r.json(); })
-      .then(function (d) { if (d && d.ok) renderWall(d); })
-      .catch(function () {});
-  }
-  loadWall();
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -508,8 +474,7 @@
       veg: coming ? count.veg : 0,
       nonveg: coming ? count.nonveg : 0,
       // e.g. " wxy  1234, bcd 5 " -> "WXY 1234, BCD 5"
-      carPlate: coming ? (fd.get('carPlate') || '').toUpperCase().replace(/[^A-Z0-9 ,-]/g, '').replace(/\s+/g, ' ').replace(/\s*,\s*/g, ', ').replace(/^[ ,]+|[ ,]+$/g, '') : '',
-      wishes: (fd.get('wishes') || '').trim()
+      carPlate: coming ? (fd.get('carPlate') || '').toUpperCase().replace(/[^A-Z0-9 ,-]/g, '').replace(/\s+/g, ' ').replace(/\s*,\s*/g, ', ').replace(/^[ ,]+|[ ,]+$/g, '') : ''
     };
     msg.classList.remove('err');
     if (!data.name) { msg.textContent = 'Please enter your name.'; msg.classList.add('err'); form.elements.namedItem('name').focus(); return; }
@@ -521,12 +486,9 @@
       msg.textContent = coming
         ? 'Thank you! We can’t wait to celebrate with you 🪔'
         : 'Thank you for letting us know. Happy Deepavali! ✨';
-      lastNewName = data.wishes ? data.name : null;
       form.reset(); paxField.hidden = false;
       count = { pax: 1, veg: 1, nonveg: 0 }; renderCounts();
       FW.show(5, 220);
-      loadWall();
-      if (data.wishes) setTimeout(function () { $('#wishes').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 900);
     };
     if (demo) {
       memRows.push(data); save(DEMO_KEY, memRows);
