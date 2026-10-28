@@ -9,7 +9,7 @@ window.INVITE = {
   // --- Cover & envelope ---
   title: "Happy Deepavali",
   subtitle: "Festival of Lights · 2026",
-  hosts: "Mahendran & Family",        // shown in the invitation and closing
+  hosts: "Mahendran Muthamah Family",        // shown in the invitation and closing
   envelopeTo: "To You & Your Beloved Family",
   envelopeHint: "Tap the seal to open",
 
