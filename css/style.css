@@ -80,7 +80,8 @@ svg { display: block; }
 #fireworks { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 60; }
 
 /* ---------- headings ---------- */
-.cover-title, .sec-title, .closing-wish, .video-soon .script,   background: var(--gold-grad);
+.cover-title, .sec-title, .closing-wish, .video-soon .script {
+  background: var(--gold-grad);
   -webkit-background-clip: text; background-clip: text;
   color: transparent;
 }
@@ -120,7 +121,7 @@ svg { display: block; }
 .cover .lamp-row .cover-title { font-size: clamp(34px, 9.6vw, 58px); }
 .lamp-row .sec-title { font-size: clamp(26px, 7.4vw, 44px); }
 .lamp-row .closing-wish { font-size: clamp(30px, 8.8vw, 64px); }
-.lamp-row .lamp-row .medallion, .lamp-row .story-diyas { margin-bottom: 0; }
+.lamp-row .medallion, .lamp-row .story-diyas { margin-bottom: 0; }
 .card .lamp-row .vilakku { width: 34px; height: 86px; }
 
 /* falling petals */
@@ -420,7 +421,14 @@ main { position: relative; z-index: 2; overflow-x: clip; }
 /* ---------- invite ---------- */
 .medallion { width: 90px; height: 90px; margin: 0 auto 14px; }
 .invite-open { margin: 0; font-weight: 700; color: var(--muted); }
-.invite-hosts { font-family: var(--display); font-weight: 700; font-size: clamp(26px, 7.2vw, 36px); line-height: 1.25; margin: 6px 0; }
+.invite-hosts {
+  font-family: var(--display); font-weight: 700; font-size: clamp(28px, 7.8vw, 40px); line-height: 1.22; letter-spacing: .02em; margin: 8px 0;
+  /* the hosts' name: rich kumkum red into saffron, with a fine gold edge */
+  background: linear-gradient(120deg, #8e0f2a 0%, #c0182f 30%, #e0561a 55%, #c0182f 78%, #8e0f2a 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255, 214, 110, .95)) drop-shadow(0 3px 8px rgba(142, 15, 42, .22));
+  text-wrap: balance;
+}
 .invite-body { margin: 6px auto 12px; max-width: 460px; }
 .event-name { font-family: var(--display); font-weight: 700; font-size: clamp(25px, 6.8vw, 35px); line-height: 1.25; margin: 6px 0 0; }
 .invite-close { margin: 0; font-weight: 700; color: var(--muted); }
