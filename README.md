@@ -13,7 +13,7 @@ No 19, Jalan Rimba 15, Taman Rimba, Bandar Gamuda Cove, Banting, Kuala Langat, 4
 3. **Video**: plays automatically and silently on loop inside a royal arch frame.
 4. **Invitation**: invites guests and their families to the open house and housewarming.
 5. **When & where**: date, time, address, countdown, embedded map, and Google Maps, Waze and Add to Calendar buttons.
-6. **RSVP**: name, phone, attendance, number of guests, vegetarian / non-vegetarian counts and an optional car number plate, saved to Google Sheets.
+6. **RSVP**: name, phone, attendance, number of guests, vegetarian / non-vegetarian counts and car number plate (required for guests who are coming), saved to Google Sheets.
 7. **Short write-up**: "A Home Filled With Light".
 8. **Closing**: "We hope to see you…" and Happy Deepavali.
 

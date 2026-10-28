@@ -538,6 +538,8 @@ main { position: relative; z-index: 2; overflow-x: clip; }
 /* car number plate */
 .car-field { margin-top: 6px; padding-top: 12px; border-top: 1px dashed rgba(170, 110, 20, .5); }
 #carPlate { text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
+.req { color: #c0392b; font-size: 1.15em; }
+#carPlate.invalid { border-color: #c0392b; box-shadow: 0 0 0 3px rgba(192, 57, 43, .2); }
 #carPlate::placeholder { text-transform: none; letter-spacing: 0; font-weight: 500; }
 .car-note { font-size: 13.5px !important; }
 

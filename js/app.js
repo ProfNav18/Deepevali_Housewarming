@@ -455,6 +455,8 @@
   });
   renderCounts();
 
+  $('#carPlate').addEventListener('input', function () { this.classList.remove('invalid'); });
+
   form.addEventListener('change', function (e) {
     if (e.target.name === 'attending') paxField.hidden = e.target.value !== 'Attending';
   });
@@ -479,6 +481,10 @@
     msg.classList.remove('err');
     if (!data.name) { msg.textContent = 'Please enter your name.'; msg.classList.add('err'); form.elements.namedItem('name').focus(); return; }
     if (!data.attending) { msg.textContent = 'Please let us know if you can attend.'; msg.classList.add('err'); return; }
+    if (coming && data.carPlate.replace(/[^A-Z0-9]/g, '').length < 2) {
+      msg.textContent = 'Please enter your car number plate.'; msg.classList.add('err');
+      var car = $('#carPlate'); car.classList.add('invalid'); car.focus(); return;
+    }
 
     btn.disabled = true; msg.textContent = 'Sending…';
     var done = function () {

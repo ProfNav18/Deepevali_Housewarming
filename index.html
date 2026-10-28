@@ -373,8 +373,8 @@
           </div>
         </div>
         <p class="meal-note" id="mealNote"></p>
-        <label class="car-field" for="carPlate">Car number plate <small>(optional, for parking)</small>
-          <input id="carPlate" name="carPlate" type="text" maxlength="40" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. WXY 1234">
+        <label class="car-field" for="carPlate"><span>Car number plate <b class="req" aria-hidden="true">*</b></span> <small>(required, for parking)</small>
+          <input id="carPlate" name="carPlate" type="text" maxlength="40" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. WXY 1234" aria-required="true">
           <small class="car-note">Coming in more than one car? Separate the plates with a comma.</small>
         </label>
       </div>
